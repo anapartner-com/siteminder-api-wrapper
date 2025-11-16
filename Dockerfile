@@ -4,20 +4,18 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Install development tools
-RUN apk add --no-cache git
+RUN apk add --no-cache git bash
 
 # Copy package files
 COPY package*.json ./
 COPY tsconfig.json ./
+COPY nodemon.json ./
 
 # Install all dependencies (including dev dependencies)
 RUN npm install
 
-# Copy source code
-COPY src ./src
-
-# Copy any other necessary files
-COPY .env* ./
+# Note: Source code will be mounted as volume at runtime
+# Do not copy src folder here - it will be mounted from host
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs && \
