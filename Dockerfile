@@ -12,8 +12,9 @@ COPY tsconfig.json ./
 COPY nodemon.json ./
 
 # Install all dependencies (including dev dependencies)
-# Using npm install without package-lock to ensure all deps are installed
-RUN npm install --verbose
+# Explicitly set NODE_ENV to development to ensure dev dependencies are installed
+ENV NODE_ENV=development
+RUN npm install
 
 # Note: Source code will be mounted as volume at runtime
 # Do not copy src folder here - it will be mounted from host
