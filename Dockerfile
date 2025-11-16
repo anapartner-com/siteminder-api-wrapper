@@ -7,12 +7,13 @@ WORKDIR /app
 RUN apk add --no-cache git bash
 
 # Copy package files
-COPY package*.json ./
+COPY package.json ./
 COPY tsconfig.json ./
 COPY nodemon.json ./
 
 # Install all dependencies (including dev dependencies)
-RUN npm install
+# Using npm install without package-lock to ensure all deps are installed
+RUN npm install --verbose
 
 # Note: Source code will be mounted as volume at runtime
 # Do not copy src folder here - it will be mounted from host
