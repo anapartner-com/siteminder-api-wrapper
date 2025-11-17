@@ -1,0 +1,24 @@
+{
+  "name": "SiteMinder API Wrapper Dev",
+  "dockerFile": "../Dockerfile",
+  "workspaceFolder": "/app",
+  "remoteUser": "nodejs",
+  "mounts": [
+    "source=${localWorkspaceFolder}/src,target=/app/src,type=bind,consistency=cached",
+    "source=${localWorkspaceFolder}/.env,target=/app/.env,type=bind,consistency=cached"
+  ],
+  "forwardPorts": [3000],
+  "postCreateCommand": "npm install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}

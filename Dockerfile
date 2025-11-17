@@ -28,6 +28,9 @@ RUN chown -R nodejs:nodejs /app
 # Switch to non-root user
 USER nodejs
 
+# Set the working directory for the user
+WORKDIR /app
+
 # Expose port
 EXPOSE 3000
 
