@@ -2,13 +2,9 @@
   "name": "SiteMinder API Wrapper Dev",
   "dockerFile": "../Dockerfile",
   "workspaceFolder": "/app",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind",
   "remoteUser": "nodejs",
-  "mounts": [
-    "source=${localWorkspaceFolder}/src,target=/app/src,type=bind,consistency=cached",
-    "source=${localWorkspaceFolder}/.env,target=/app/.env,type=bind,consistency=cached"
-  ],
   "forwardPorts": [3000],
-  "postCreateCommand": "npm install",
   "customizations": {
     "vscode": {
       "extensions": [

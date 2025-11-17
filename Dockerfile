@@ -15,8 +15,9 @@ COPY nodemon.json ./
 RUN npm install -g nodemon ts-node && \
     npm install
 
-# Note: Source code will be mounted as volume at runtime
-# Do not copy src folder here - it will be mounted from host
+# Note: When using with VS Code dev container:
+# - The entire workspace will be mounted at /app, overwriting these files
+# - This ensures live reloading works with your local changes
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs && \
