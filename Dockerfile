@@ -12,7 +12,8 @@ COPY tsconfig.json ./
 COPY nodemon.json ./
 
 # Install all dependencies
-RUN npm install
+RUN npm install -g nodemon ts-node && \
+    npm install
 
 # Note: Source code will be mounted as volume at runtime
 # Do not copy src folder here - it will be mounted from host
