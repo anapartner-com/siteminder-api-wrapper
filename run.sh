@@ -1,7 +1,7 @@
 image="siteminder-api-wrapper"
 case $1 in
   "build")
-    docker build --no-cache -t ${image}:latest .
+	  docker build --build-arg USER_UID="$(id -u)" --build-arg USER_GID="$(id -g)" --no-cache -t ${image}:latest .
     ;;
   "start")
     docker run -d --rm \
