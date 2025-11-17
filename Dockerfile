@@ -21,14 +21,16 @@ RUN npm install -g nodemon ts-node && \
 # - This ensures live reloading works with your local changes
 
 # Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
+#RUN addgroup -g 1000 -S nodejs && \
+#    adduser -S nodejs -u 1000
 
 # Change ownership
-RUN chown -R nodejs:nodejs /app
+#RUN chown -R nodejs:nodejs /app
+RUN chown -R node:node /app
 
 # Switch to non-root user
-USER nodejs
+#USER nodejs
+USER node
 
 # Set the working directory for the user
 WORKDIR /app
