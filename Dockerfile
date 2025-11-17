@@ -10,6 +10,7 @@ RUN apk add --no-cache git bash
 COPY package.json ./
 COPY tsconfig.json ./
 COPY nodemon.json ./
+COPY public-openapi.json ./
 
 # Install all dependencies
 RUN npm install -g nodemon ts-node && \
