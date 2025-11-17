@@ -1,6 +1,10 @@
 # Development container
 FROM node:20-alpine
 
+# Accept build arguments for user ID and group ID
+ARG USER_UID=1000
+ARG USER_GID=1000
+
 WORKDIR /app
 
 # Install development tools
@@ -16,21 +20,23 @@ COPY public-openapi.json ./
 RUN npm install -g nodemon ts-node && \
     npm install
 
-# Note: When using with VS Code dev container:
-# - The entire workspace will be mounted at /app, overwriting these files
-# - This ensures live reloading works with your local changes
-
-# Create non-root user
-#RUN addgroup -g 1000 -S nodejs && \
-#    adduser -S nodejs -u 1000
+# Create user based on host UID/GID
+RUN if [ "$USER_UID" = "1000" ] && [ "$USER_GID" = "1000" ]; then \
+        echo "Using existing node user"; \
+    else \
+        addgroup -g $USER_GID appuser && \
+        adduser -u $USER_UID -G appuser -s /bin/sh -D appuser; \
+    fi
 
 # Change ownership
-#RUN chown -R nodejs:nodejs /app
-RUN chown -R node:node /app
+RUN if [ "$USER_UID" = "1000" ] && [ "$USER_GID" = "1000" ]; then \
+        chown -R node:node /app; \
+    else \
+        chown -R appuser:appuser /app; \
+    fi
 
-# Switch to non-root user
-#USER nodejs
-USER node
+# Switch to appropriate user
+USER ${USER_UID}:${USER_GID}
 
 # Set the working directory for the user
 WORKDIR /app
