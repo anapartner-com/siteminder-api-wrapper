@@ -1,5 +1,7 @@
 import { Router, Request, Response } from 'express';
 import axios from 'axios';
+import * as fs from 'fs';
+import * as path from 'path';
 import { config } from '../config';
 import { tokenManager } from '../services/tokenManager';
 import { logger } from '../utils/logger';
@@ -49,243 +51,32 @@ router.get('/status', (_req: Request, res: Response) => {
   }
 });
 
-// OpenAPI 3.0 spec - simplified for OpenWebUI
+// OpenAPI 3.0 spec - full SiteMinder API from static file
 router.get('/openapi.json', (req: Request, res: Response) => {
-  const serverUrl = `http://${req.hostname}:${config.port}`;
+  try {
+    const serverUrl = `http://${req.hostname}:${config.port}`;
+    const openapiPath = path.join(__dirname, '../../openapi.json');
 
-  const openapi3Spec = {
-    openapi: '3.0.0',
-    info: {
-      title: 'SiteMinder REST API Wrapper',
-      version: '1.0.0',
-      description: 'Simplified SiteMinder API wrapper with automatic token management'
-    },
-    servers: [
+    // Read the static OpenAPI spec
+    const openapiContent = fs.readFileSync(openapiPath, 'utf8');
+    const openapiSpec = JSON.parse(openapiContent);
+
+    // Update the server URL dynamically based on the request
+    openapiSpec.servers = [
       {
         url: serverUrl,
         description: 'SiteMinder API Wrapper'
       }
-    ],
-    paths: {
-      '/ca/api/sso/services/policy/v1/SmAgents': {
-        get: {
-          summary: 'List all SiteMinder Agents',
-          description: 'Returns a list of all configured SiteMinder agents',
-          operationId: 'listAgents',
-          parameters: [],
-          responses: {
-            '200': {
-              description: 'Successful response',
-              content: {
-                'application/json': {
-                  schema: {
-                    type: 'object',
-                    properties: {
-                      responseType: { type: 'string' },
-                      data: { type: 'array', items: { type: 'object' } }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      '/ca/api/sso/services/policy/v1/SmAgents/{name}': {
-        get: {
-          summary: 'Get Agent by name',
-          description: 'Returns details for a specific SiteMinder agent. First call the listAgents operation to get the list of available agents, then extract the agent name from the "path" field (e.g., "/SmAgents/test_agent" -> use "test_agent")',
-          operationId: 'getAgentByName',
-          parameters: [
-            {
-              name: 'name',
-              in: 'path',
-              required: true,
-              description: 'Agent name from the path field (without /SmAgents/ prefix). Example: test_agent, sps_agent',
-              schema: {
-                type: 'string',
-                example: 'test_agent'
-              }
-            }
-          ],
-          responses: {
-            '200': {
-              description: 'Successful response',
-              content: {
-                'application/json': {
-                  schema: { type: 'object' }
-                }
-              }
-            }
-          }
-        }
-      },
-      '/ca/api/sso/services/policy/v1/SmUserDirectories': {
-        get: {
-          summary: 'List all User Directories',
-          description: 'Returns a list of all configured user directories',
-          operationId: 'listUserDirectories',
-          parameters: [],
-          responses: {
-            '200': {
-              description: 'Successful response',
-              content: {
-                'application/json': {
-                  schema: {
-                    type: 'object',
-                    properties: {
-                      responseType: { type: 'string' },
-                      data: { type: 'array', items: { type: 'object' } }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      '/ca/api/sso/services/policy/v1/SmUserDirectories/{name}': {
-        get: {
-          summary: 'Get User Directory by name',
-          description: 'Returns details for a specific user directory. First call listUserDirectories to get available directories, then extract the name from the "path" field (e.g., "/SmUserDirectories/defaultUserDir" -> use "defaultUserDir")',
-          operationId: 'getUserDirectoryByName',
-          parameters: [
-            {
-              name: 'name',
-              in: 'path',
-              required: true,
-              description: 'User directory name from the path field (without /SmUserDirectories/ prefix). Example: defaultUserDir',
-              schema: {
-                type: 'string',
-                example: 'defaultUserDir'
-              }
-            }
-          ],
-          responses: {
-            '200': {
-              description: 'Successful response',
-              content: {
-                'application/json': {
-                  schema: { type: 'object' }
-                }
-              }
-            }
-          }
-        }
-      },
-      '/ca/api/sso/services/policy/v1/SmRealms': {
-        get: {
-          summary: 'List all Realms',
-          description: 'Returns a list of all configured realms',
-          operationId: 'listRealms',
-          parameters: [],
-          responses: {
-            '200': {
-              description: 'Successful response',
-              content: {
-                'application/json': {
-                  schema: {
-                    type: 'object',
-                    properties: {
-                      responseType: { type: 'string' },
-                      data: { type: 'array', items: { type: 'object' } }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      '/ca/api/sso/services/policy/v1/SmRealms/{name}': {
-        get: {
-          summary: 'Get Realm by name',
-          description: 'Returns details for a specific realm. First call listRealms to get available realms, then extract the name from the "path" field (e.g., "/SmRealms/MyRealm" -> use "MyRealm")',
-          operationId: 'getRealmByName',
-          parameters: [
-            {
-              name: 'name',
-              in: 'path',
-              required: true,
-              description: 'Realm name from the path field (without /SmRealms/ prefix)',
-              schema: {
-                type: 'string',
-                example: 'MyRealm'
-              }
-            }
-          ],
-          responses: {
-            '200': {
-              description: 'Successful response',
-              content: {
-                'application/json': {
-                  schema: { type: 'object' }
-                }
-              }
-            }
-          }
-        }
-      },
-      '/ca/api/sso/services/policy/v1/SmDomains': {
-        get: {
-          summary: 'List all Domains',
-          description: 'Returns a list of all configured domains',
-          operationId: 'listDomains',
-          parameters: [],
-          responses: {
-            '200': {
-              description: 'Successful response',
-              content: {
-                'application/json': {
-                  schema: {
-                    type: 'object',
-                    properties: {
-                      responseType: { type: 'string' },
-                      data: { type: 'array', items: { type: 'object' } }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      '/ca/api/sso/services/policy/v1/SmDomains/{name}': {
-        get: {
-          summary: 'Get Domain by name',
-          description: 'Returns details for a specific domain. First call listDomains to get available domains, then extract the name from the "path" field (e.g., "/SmDomains/MyDomain" -> use "MyDomain")',
-          operationId: 'getDomainByName',
-          parameters: [
-            {
-              name: 'name',
-              in: 'path',
-              required: true,
-              description: 'Domain name from the path field (without /SmDomains/ prefix)',
-              schema: {
-                type: 'string',
-                example: 'MyDomain'
-              }
-            }
-          ],
-          responses: {
-            '200': {
-              description: 'Successful response',
-              content: {
-                'application/json': {
-                  schema: { type: 'object' }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    components: {
-      schemas: {}
-    }
-  };
+    ];
 
-  res.json(openapi3Spec);
+    res.json(openapiSpec);
+  } catch (error: any) {
+    logger.error('Failed to load OpenAPI spec:', error.message);
+    res.status(500).json({
+      error: 'Failed to load OpenAPI specification',
+      message: error.message
+    });
+  }
 });
 
 // Swagger 2.0 spec - original from SiteMinder
