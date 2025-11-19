@@ -54,7 +54,8 @@ router.get('/status', (_req: Request, res: Response) => {
 // OpenAPI 3.0 spec - full SiteMinder API from static file
 router.get('/openapi.json', (req: Request, res: Response) => {
   try {
-    const serverUrl = `http://${req.hostname}:${config.port}`;
+    // Use the Host header from the request to get the correct external URL
+    const serverUrl = `http://${req.get('host')}`;
     const openapiPath = path.join(__dirname, '../../openapi.json');
 
     // Read the static OpenAPI spec
