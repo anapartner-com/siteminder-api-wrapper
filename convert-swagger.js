@@ -3,6 +3,32 @@ const fs = require('fs');
 // Read the Swagger 2.0 spec
 const swagger2 = JSON.parse(fs.readFileSync('./siteminder-swagger-original.json', 'utf8'));
 
+// Helper function to recursively convert all $ref from #/definitions/ to #/components/schemas/
+function convertRefs(obj) {
+  if (obj === null || obj === undefined) {
+    return obj;
+  }
+
+  if (typeof obj === 'object') {
+    if (Array.isArray(obj)) {
+      return obj.map(item => convertRefs(item));
+    }
+
+    const newObj = {};
+    for (const key in obj) {
+      if (key === '$ref' && typeof obj[key] === 'string') {
+        // Convert #/definitions/X to #/components/schemas/X
+        newObj[key] = obj[key].replace('#/definitions/', '#/components/schemas/');
+      } else {
+        newObj[key] = convertRefs(obj[key]);
+      }
+    }
+    return newObj;
+  }
+
+  return obj;
+}
+
 // Convert Swagger 2.0 to OpenAPI 3.0
 const openapi3 = {
   openapi: '3.0.0',
@@ -37,7 +63,7 @@ This wrapper exposes all SiteMinder Policy Data API operations including:
   ],
   paths: {},
   components: {
-    schemas: swagger2.definitions || {},
+    schemas: convertRefs(swagger2.definitions || {}),
     securitySchemes: {}
   }
 };
@@ -111,7 +137,7 @@ for (const [path, pathItem] of Object.entries(swagger2.paths)) {
           if (response.schema) {
             newResponse.content = {
               'application/json': {
-                schema: response.schema
+                schema: convertRefs(response.schema)
               }
             };
           }
@@ -146,7 +172,7 @@ for (const [path, pathItem] of Object.entries(swagger2.paths)) {
             required: bodyParam.required || false,
             content: {
               'application/json': {
-                schema: bodyParam.schema
+                schema: convertRefs(bodyParam.schema)
               }
             }
           };
@@ -184,10 +210,26 @@ for (const path in openapi3.paths) {
   }
 }
 
+// Verify $ref conversion
+const openapiString = JSON.stringify(openapi3);
+const oldStyleRefs = (openapiString.match(/#\/definitions\//g) || []).length;
+const newStyleRefs = (openapiString.match(/#\/components\/schemas\//g) || []).length;
+
 console.log('✅ Conversion complete! Generated openapi.json\n');
 console.log('📊 Statistics:');
 console.log(`   • Total API endpoints: ${Object.keys(openapi3.paths).length}`);
 console.log(`   • Total schemas: ${Object.keys(openapi3.components.schemas).length}`);
 console.log(`   • Valid parameters: ${validParams} (filtered ${totalParams - validParams} invalid)`);
 console.log(`   • Tags: ${tags.size}`);
-console.log('\n✨ Ready for Open WebUI at: http://localhost:3001/openapi.json');
+console.log(`\n🔗 Reference Conversion:`);
+console.log(`   • Old-style refs (#/definitions/): ${oldStyleRefs}`);
+console.log(`   • New-style refs (#/components/schemas/): ${newStyleRefs}`);
+
+if (oldStyleRefs > 0) {
+  console.error(`\n❌ ERROR: Found ${oldStyleRefs} unconverted #/definitions/ references!`);
+  console.error('   The OpenAPI spec may not work correctly with some tools.');
+  process.exit(1);
+} else {
+  console.log(`\n✅ All references successfully converted to OpenAPI 3.0 format!`);
+  console.log('✨ Ready for Open WebUI at: http://localhost:3001/openapi.json');
+}

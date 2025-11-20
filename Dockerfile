@@ -15,10 +15,14 @@ COPY package.json ./
 COPY tsconfig.json ./
 COPY nodemon.json ./
 COPY public-openapi.json ./
+COPY openapi.json ./
 
 # Install all dependencies
 RUN npm install -g nodemon ts-node && \
     npm install
+
+# Copy source code
+COPY src ./src
 
 # Create user based on host UID/GID
 RUN if [ "$USER_UID" = "1000" ] && [ "$USER_GID" = "1000" ]; then \
