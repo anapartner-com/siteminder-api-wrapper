@@ -4,14 +4,31 @@ import { logger } from '../utils/logger';
 
 class TokenManager {
   private token: string | null = null;
-  private refreshTimer: NodeJS.Timeout | null = null;
+  private isRefreshing: boolean = false;
+  private refreshPromise: Promise<void> | null = null;
 
   async initialize(): Promise<void> {
     await this.refreshToken();
-    this.startAutoRefresh();
   }
 
-  private async refreshToken(): Promise<void> {
+  async refreshToken(): Promise<void> {
+    // If already refreshing, wait for that to complete
+    if (this.isRefreshing && this.refreshPromise) {
+      return this.refreshPromise;
+    }
+
+    this.isRefreshing = true;
+    this.refreshPromise = this._doRefresh();
+
+    try {
+      await this.refreshPromise;
+    } finally {
+      this.isRefreshing = false;
+      this.refreshPromise = null;
+    }
+  }
+
+  private async _doRefresh(): Promise<void> {
     try {
       logger.info('Refreshing SiteMinder token...');
 
@@ -58,34 +75,11 @@ class TokenManager {
     }
   }
 
-  private startAutoRefresh(): void {
-    if (this.refreshTimer) {
-      clearInterval(this.refreshTimer);
-    }
-
-    this.refreshTimer = setInterval(async () => {
-      try {
-        await this.refreshToken();
-      } catch (error) {
-        logger.error('Auto-refresh failed, will retry on next interval');
-      }
-    }, config.siteminder.tokenRefreshInterval);
-
-    logger.info(`Token auto-refresh started (interval: ${config.siteminder.tokenRefreshInterval}ms)`);
-  }
-
   getToken(): string {
     if (!this.token) {
       throw new Error('Token not initialized');
     }
     return this.token;
-  }
-
-  stop(): void {
-    if (this.refreshTimer) {
-      clearInterval(this.refreshTimer);
-      this.refreshTimer = null;
-    }
   }
 }
 
