@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   siteminder-wrapper:
     build:
@@ -7,10 +5,18 @@ services:
       dockerfile: Dockerfile
     container_name: siteminder-api-wrapper
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - "3001:3001"
+    extra_hosts:
+      - "smheaders.cxa.anapartner.net:34.122.218.6"
+      - "test.cxa.anapartner.net:34.122.218.6"
+      - "casso.cx.anapartner.net:34.122.218.6"
+      - "sps.ab.anapartner.net:34.122.218.6"
+      - "smheaders.abapps.anapartner.net:34.122.218.6"
+      - "test.abapps.anapartner.net:34.122.218.6"
     environment:
       - NODE_ENV=${NODE_ENV:-production}
-      - PORT=3000
+      - PORT=${PORT:-3001}
       - HOST=0.0.0.0
       - SITEMINDER_BASE_URL=${SITEMINDER_BASE_URL:-https://casso.cx.anapartner.net}
       - SITEMINDER_USERNAME=${SITEMINDER_USERNAME:-siteminder}
@@ -18,8 +24,15 @@ services:
       - TOKEN_REFRESH_INTERVAL=${TOKEN_REFRESH_INTERVAL:-840000}
       - LOG_LEVEL=${LOG_LEVEL:-info}
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3001/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
       interval: 30s
       timeout: 3s
       retries: 3
       start_period: 10s
+    networks:
+      - ollama-network
+
+networks:
+  ollama-network:
+    external: true
+    name: opensource-llm_ollama-network

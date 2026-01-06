@@ -1,0 +1,52 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SiteMinder API",
+    "version": "1.0.0",
+    "description": "SiteMinder Policy Server API for managing agents, domains, and realms."
+  },
+  "servers": [
+    {
+      "url": "http://siteminder-api-wrapper:3001",
+      "description": "SiteMinder API Wrapper"
+    }
+  ],
+  "paths": {
+    "/ca/api/sso/services/policy/v1/SmAgents": {
+      "get": {
+        "operationId": "listAgents",
+        "summary": "List all SiteMinder agents",
+        "description": "Returns a list of all SiteMinder agents configured in the policy server",
+        "responses": {
+          "200": {
+            "description": "List of agents"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains": {
+      "get": {
+        "operationId": "listDomains",
+        "summary": "List all SiteMinder domains",
+        "description": "Returns a list of all SiteMinder domains configured in the policy server",
+        "responses": {
+          "200": {
+            "description": "List of domains"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmRealms": {
+      "get": {
+        "operationId": "listRealms",
+        "summary": "List all SiteMinder realms",
+        "description": "Returns a list of all SiteMinder realms configured in the policy server",
+        "responses": {
+          "200": {
+            "description": "List of realms"
+          }
+        }
+      }
+    }
+  }
+}

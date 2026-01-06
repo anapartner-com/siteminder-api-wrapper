@@ -1,0 +1,153 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SiteMinder API",
+    "version": "1.0.0",
+    "description": "Query SiteMinder Policy Server configuration - agents, domains, realms, policies, rules, and more"
+  },
+  "servers": [{"url": "http://siteminder-api-wrapper:3001"}],
+  "paths": {
+    "/ca/api/sso/services/policy/v1/SmAgents": {
+      "get": {
+        "operationId": "listAgents",
+        "summary": "List all SiteMinder web agents",
+        "responses": {"200": {"description": "List of agents"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAgents/{name}": {
+      "get": {
+        "operationId": "getAgent",
+        "summary": "Get a specific agent by name",
+        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"200": {"description": "Agent details"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains": {
+      "get": {
+        "operationId": "listDomains",
+        "summary": "List all policy domains",
+        "responses": {"200": {"description": "List of domains"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{name}": {
+      "get": {
+        "operationId": "getDomain",
+        "summary": "Get a specific domain by name",
+        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"200": {"description": "Domain details"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmRealms": {
+      "get": {
+        "operationId": "listRealms",
+        "summary": "List all protected realms",
+        "responses": {"200": {"description": "List of realms"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmPolicies": {
+      "get": {
+        "operationId": "listPolicies",
+        "summary": "List all access policies",
+        "responses": {"200": {"description": "List of policies"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmRules": {
+      "get": {
+        "operationId": "listRules",
+        "summary": "List all policy rules",
+        "responses": {"200": {"description": "List of rules"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmUserDirectories": {
+      "get": {
+        "operationId": "listUserDirectories",
+        "summary": "List all user directories (LDAP, AD, etc)",
+        "responses": {"200": {"description": "List of user directories"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAuthSchemes": {
+      "get": {
+        "operationId": "listAuthSchemes",
+        "summary": "List all authentication schemes",
+        "responses": {"200": {"description": "List of auth schemes"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmResponses": {
+      "get": {
+        "operationId": "listResponses",
+        "summary": "List all response objects",
+        "responses": {"200": {"description": "List of responses"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAgentGroups": {
+      "get": {
+        "operationId": "listAgentGroups",
+        "summary": "List all agent groups",
+        "responses": {"200": {"description": "List of agent groups"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAgentConfigs": {
+      "get": {
+        "operationId": "listAgentConfigs",
+        "summary": "List all agent configurations",
+        "responses": {"200": {"description": "List of agent configs"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAdmins": {
+      "get": {
+        "operationId": "listAdmins",
+        "summary": "List all SiteMinder administrators",
+        "responses": {"200": {"description": "List of admins"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmHostConfigs": {
+      "get": {
+        "operationId": "listHostConfigs",
+        "summary": "List all host configurations",
+        "responses": {"200": {"description": "List of host configs"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmPasswordPolicies": {
+      "get": {
+        "operationId": "listPasswordPolicies",
+        "summary": "List all password policies",
+        "responses": {"200": {"description": "List of password policies"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAgentTypes": {
+      "get": {
+        "operationId": "listAgentTypes",
+        "summary": "List all agent types",
+        "responses": {"200": {"description": "List of agent types"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmCertMaps": {
+      "get": {
+        "operationId": "listCertMaps",
+        "summary": "List all certificate mappings",
+        "responses": {"200": {"description": "List of cert maps"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmVariables": {
+      "get": {
+        "operationId": "listVariables",
+        "summary": "List all SiteMinder variables",
+        "responses": {"200": {"description": "List of variables"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmIdentityMappings": {
+      "get": {
+        "operationId": "listIdentityMappings",
+        "summary": "List all identity mappings",
+        "responses": {"200": {"description": "List of identity mappings"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmResponseGroups": {
+      "get": {
+        "operationId": "listResponseGroups",
+        "summary": "List all response groups",
+        "responses": {"200": {"description": "List of response groups"}}
+      }
+    }
+  }
+}

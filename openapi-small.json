@@ -1,0 +1,46 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SiteMinder API",
+    "version": "1.0.0",
+    "description": "Query SiteMinder Policy Server configuration"
+  },
+  "servers": [{"url": "http://siteminder-api-wrapper:3001"}],
+  "paths": {
+    "/ca/api/sso/services/policy/v1/SmAgents": {
+      "get": {
+        "operationId": "listAgents",
+        "summary": "List all SiteMinder agents",
+        "responses": {"200": {"description": "List of agents"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains": {
+      "get": {
+        "operationId": "listDomains",
+        "summary": "List all SiteMinder domains",
+        "responses": {"200": {"description": "List of domains"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmRealms": {
+      "get": {
+        "operationId": "listRealms",
+        "summary": "List all SiteMinder realms",
+        "responses": {"200": {"description": "List of realms"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmPolicies": {
+      "get": {
+        "operationId": "listPolicies",
+        "summary": "List all SiteMinder policies",
+        "responses": {"200": {"description": "List of policies"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmResponses": {
+      "get": {
+        "operationId": "listResponses",
+        "summary": "List all SiteMinder responses",
+        "responses": {"200": {"description": "List of responses"}}
+      }
+    }
+  }
+}

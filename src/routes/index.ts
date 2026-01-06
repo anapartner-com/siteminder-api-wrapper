@@ -80,6 +80,136 @@ router.get('/openapi.json', (req: Request, res: Response) => {
   }
 });
 
+// OpenAPI 3.0 spec - MINIMAL version for LLM tools (3 operations only)
+router.get('/openapi-minimal.json', (req: Request, res: Response) => {
+  try {
+    const serverUrl = `http://${req.get('host')}`;
+    const openapiPath = path.join(__dirname, '../../openapi-minimal.json');
+
+    const openapiContent = fs.readFileSync(openapiPath, 'utf8');
+    const openapiSpec = JSON.parse(openapiContent);
+
+    openapiSpec.servers = [
+      {
+        url: serverUrl,
+        description: 'SiteMinder API Wrapper'
+      }
+    ];
+
+    res.json(openapiSpec);
+  } catch (error: any) {
+    logger.error('Failed to load OpenAPI minimal spec:', error.message);
+    res.status(500).json({
+      error: 'Failed to load OpenAPI minimal specification',
+      message: error.message
+    });
+  }
+});
+
+// OpenAPI 3.0 spec - FULL version for LLM tools (43 operations with CRUD)
+router.get('/openapi-full.json', (req: Request, res: Response) => {
+  try {
+    const serverUrl = `http://${req.get('host')}`;
+    const openapiPath = path.join(__dirname, '../../openapi-full.json');
+
+    const openapiContent = fs.readFileSync(openapiPath, 'utf8');
+    const openapiSpec = JSON.parse(openapiContent);
+
+    openapiSpec.servers = [
+      {
+        url: serverUrl,
+        description: 'SiteMinder API Wrapper'
+      }
+    ];
+
+    res.json(openapiSpec);
+  } catch (error: any) {
+    logger.error('Failed to load OpenAPI full spec:', error.message);
+    res.status(500).json({
+      error: 'Failed to load OpenAPI full specification',
+      message: error.message
+    });
+  }
+});
+
+// OpenAPI 3.0 spec - LARGE version for LLM tools (20 operations)
+router.get('/openapi-large.json', (req: Request, res: Response) => {
+  try {
+    const serverUrl = `http://${req.get('host')}`;
+    const openapiPath = path.join(__dirname, '../../openapi-large.json');
+
+    const openapiContent = fs.readFileSync(openapiPath, 'utf8');
+    const openapiSpec = JSON.parse(openapiContent);
+
+    openapiSpec.servers = [
+      {
+        url: serverUrl,
+        description: 'SiteMinder API Wrapper'
+      }
+    ];
+
+    res.json(openapiSpec);
+  } catch (error: any) {
+    logger.error('Failed to load OpenAPI large spec:', error.message);
+    res.status(500).json({
+      error: 'Failed to load OpenAPI large specification',
+      message: error.message
+    });
+  }
+});
+
+// OpenAPI 3.0 spec - MEDIUM version for LLM tools (10 operations)
+router.get('/openapi-medium.json', (req: Request, res: Response) => {
+  try {
+    const serverUrl = `http://${req.get('host')}`;
+    const openapiPath = path.join(__dirname, '../../openapi-medium.json');
+
+    const openapiContent = fs.readFileSync(openapiPath, 'utf8');
+    const openapiSpec = JSON.parse(openapiContent);
+
+    openapiSpec.servers = [
+      {
+        url: serverUrl,
+        description: 'SiteMinder API Wrapper'
+      }
+    ];
+
+    res.json(openapiSpec);
+  } catch (error: any) {
+    logger.error('Failed to load OpenAPI medium spec:', error.message);
+    res.status(500).json({
+      error: 'Failed to load OpenAPI medium specification',
+      message: error.message
+    });
+  }
+});
+
+// OpenAPI 3.0 spec - LITE version for LLM tools (reduced operations)
+router.get('/openapi-lite.json', (req: Request, res: Response) => {
+  try {
+    const serverUrl = `http://${req.get('host')}`;
+    const openapiPath = path.join(__dirname, '../../openapi-lite.json');
+
+    const openapiContent = fs.readFileSync(openapiPath, 'utf8');
+    const openapiSpec = JSON.parse(openapiContent);
+
+    openapiSpec.servers = [
+      {
+        url: serverUrl,
+        description: 'SiteMinder API Wrapper'
+      }
+    ];
+
+    res.json(openapiSpec);
+  } catch (error: any) {
+    logger.error('Failed to load OpenAPI lite spec:', error.message);
+    res.status(500).json({
+      error: 'Failed to load OpenAPI lite specification',
+      message: error.message
+    });
+  }
+});
+
 // Swagger 2.0 spec - original from SiteMinder
 router.get('/swagger.json', async (req: Request, res: Response) => {
   try {

@@ -1,0 +1,2980 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SiteMinder API (Lite)",
+    "version": "2.1.5",
+    "description": "Simplified SiteMinder Policy API for common operations. Manages Agents, Domains, Realms, Rules, Policies, User Directories, and Authentication Schemes."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001",
+      "description": "SiteMinder API Wrapper"
+    }
+  ],
+  "paths": {
+    "/ca/api/sso/services/policy/v1/objects/{id}": {
+      "get": {
+        "tags": [
+          "object"
+        ],
+        "operationId": "fetchobjectbyid",
+        "summary": "Fetch object by id",
+        "description": "Returns single object which can be of type SmAgent,SmDomain etc... different fields will be returned in the response body depending on the type of object returned.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of object",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "GETObjectResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "object"
+        ],
+        "operationId": "updateobjectbyid",
+        "summary": "Update object",
+        "description": "Updates an object and returns the newly updated object which can be of type SmAgent,SmDomain etc... different fields will be returned in the response body depending on the type of object returned.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of object",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PUTObjectResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Updated object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/object"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "object"
+        ],
+        "operationId": "deleteobjectbyid",
+        "summary": "Delete object",
+        "description": "Deletes an object and returns empty response.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Name of object",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/objects/{id}/relatedobj": {
+      "get": {
+        "tags": [
+          "object"
+        ],
+        "operationId": "fetchrelatedobjectbyid",
+        "summary": "Fetch objects related to this object by name",
+        "description": "Returns objects related to this object which can be of type SmAgent,SmDomain etc... different fields will be returned in the response body depending on the type of object returned.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of object",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/objects/{id}/usedby": {
+      "get": {
+        "tags": [
+          "object"
+        ],
+        "operationId": "fetchusedbyobjectbyid",
+        "summary": "Fetch objects used by this object by name",
+        "description": "Returns objects used by this object which can be of type SmAgent,SmDomain etc... different fields will be returned in the response body depending on the type of object returned.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of object",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAgents": {
+      "post": {
+        "tags": [
+          "SmAgent"
+        ],
+        "operationId": "createSmAgent",
+        "summary": "Creates a new SmAgent",
+        "description": "Creates a new SmAgent and returns the newly created object.",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "POSTSmAgentResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmAgent"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Created SmAgent object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmAgent"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "SmAgent"
+        ],
+        "operationId": "fetchSmAgents",
+        "summary": "Fetch SmAgents",
+        "description": "Returns list of SmAgent links",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAgents/{SmAgentName}": {
+      "get": {
+        "tags": [
+          "SmAgent"
+        ],
+        "operationId": "fetchSmAgentbyname",
+        "summary": "Fetch SmAgent by name",
+        "description": "Returns single SmAgent object",
+        "parameters": [
+          {
+            "name": "SmAgentName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expanded",
+            "in": "query",
+            "required": false,
+            "description": "return the object while expanding all the objects associated with it as well as all of it's children objects (entire sub-tree of this object).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "classinfo",
+            "in": "query",
+            "required": false,
+            "description": "return the meta-data/class information for this object's class. specifies what fields are mandatory, the value's data type, whether it's a list or a single value, etc.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "editinfo",
+            "in": "query",
+            "required": false,
+            "description": "same as classinfo, but with the addition of the actual values of the object.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "GETSmAgentResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmAgent"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SmAgent"
+        ],
+        "operationId": "updateSmAgentbyname",
+        "summary": "Update SmAgent",
+        "description": "Updates an SmAgent object and returns the newly updated object.",
+        "parameters": [
+          {
+            "name": "SmAgentName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PUTSmAgentResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmAgent"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Updated SmAgent object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmAgent"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SmAgent"
+        ],
+        "operationId": "deleteSmAgentbyname",
+        "summary": "Delete SmAgent",
+        "description": "Deletes an SmAgent object and returns empty response.",
+        "parameters": [
+          {
+            "name": "SmAgentName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAuthSchemes": {
+      "post": {
+        "tags": [
+          "SmAuthScheme"
+        ],
+        "operationId": "createSmAuthScheme",
+        "summary": "Creates a new SmAuthScheme",
+        "description": "Creates a new SmAuthScheme and returns the newly created object.",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "POSTSmAuthSchemeResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmAuthScheme"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Created SmAuthScheme object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmAuthScheme"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "SmAuthScheme"
+        ],
+        "operationId": "fetchSmAuthSchemes",
+        "summary": "Fetch SmAuthSchemes",
+        "description": "Returns list of SmAuthScheme links",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAuthSchemes/{SmAuthSchemeName}": {
+      "get": {
+        "tags": [
+          "SmAuthScheme"
+        ],
+        "operationId": "fetchSmAuthSchemebyname",
+        "summary": "Fetch SmAuthScheme by name",
+        "description": "Returns single SmAuthScheme object",
+        "parameters": [
+          {
+            "name": "SmAuthSchemeName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expanded",
+            "in": "query",
+            "required": false,
+            "description": "return the object while expanding all the objects associated with it as well as all of it's children objects (entire sub-tree of this object).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "classinfo",
+            "in": "query",
+            "required": false,
+            "description": "return the meta-data/class information for this object's class. specifies what fields are mandatory, the value's data type, whether it's a list or a single value, etc.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "editinfo",
+            "in": "query",
+            "required": false,
+            "description": "same as classinfo, but with the addition of the actual values of the object.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "GETSmAuthSchemeResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmAuthScheme"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SmAuthScheme"
+        ],
+        "operationId": "updateSmAuthSchemebyname",
+        "summary": "Update SmAuthScheme",
+        "description": "Updates an SmAuthScheme object and returns the newly updated object.",
+        "parameters": [
+          {
+            "name": "SmAuthSchemeName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PUTSmAuthSchemeResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmAuthScheme"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Updated SmAuthScheme object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmAuthScheme"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SmAuthScheme"
+        ],
+        "operationId": "deleteSmAuthSchemebyname",
+        "summary": "Delete SmAuthScheme",
+        "description": "Deletes an SmAuthScheme object and returns empty response.",
+        "parameters": [
+          {
+            "name": "SmAuthSchemeName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains": {
+      "post": {
+        "tags": [
+          "SmDomain"
+        ],
+        "operationId": "createSmDomain",
+        "summary": "Creates a new SmDomain",
+        "description": "Creates a new SmDomain and returns the newly created object.",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "POSTSmDomainResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmDomain"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Created SmDomain object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmDomain"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "SmDomain"
+        ],
+        "operationId": "fetchSmDomains",
+        "summary": "Fetch SmDomains",
+        "description": "Returns list of SmDomain links",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{SmDomainName}": {
+      "get": {
+        "tags": [
+          "SmDomain"
+        ],
+        "operationId": "fetchSmDomainbyname",
+        "summary": "Fetch SmDomain by name",
+        "description": "Returns single SmDomain object",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expanded",
+            "in": "query",
+            "required": false,
+            "description": "return the object while expanding all the objects associated with it as well as all of it's children objects (entire sub-tree of this object).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "classinfo",
+            "in": "query",
+            "required": false,
+            "description": "return the meta-data/class information for this object's class. specifies what fields are mandatory, the value's data type, whether it's a list or a single value, etc.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "editinfo",
+            "in": "query",
+            "required": false,
+            "description": "same as classinfo, but with the addition of the actual values of the object.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "GETSmDomainResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmDomain"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SmDomain"
+        ],
+        "operationId": "updateSmDomainbyname",
+        "summary": "Update SmDomain",
+        "description": "Updates an SmDomain object and returns the newly updated object.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PUTSmDomainResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmDomain"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Updated SmDomain object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmDomain"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SmDomain"
+        ],
+        "operationId": "deleteSmDomainbyname",
+        "summary": "Delete SmDomain",
+        "description": "Deletes an SmDomain object and returns empty response.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmPolicies": {
+      "get": {
+        "tags": [
+          "SmPolicy"
+        ],
+        "operationId": "fetchSmPolicies",
+        "summary": "Fetch SmPolicies",
+        "description": "Returns list of SmPolicy links",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{SmDomainName}/SmPolicies": {
+      "post": {
+        "tags": [
+          "SmPolicy"
+        ],
+        "operationId": "createSmPolicy",
+        "summary": "Creates a new SmPolicy",
+        "description": "Creates a new SmPolicy and returns the newly created object.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "POSTSmPolicyResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmPolicy"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Created SmPolicy object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmPolicy"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{SmDomainName}/SmPolicies/{SmPolicyName}": {
+      "get": {
+        "tags": [
+          "SmPolicy"
+        ],
+        "operationId": "fetchSmPolicybyname",
+        "summary": "Fetch SmPolicy by name",
+        "description": "Returns single SmPolicy object",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmPolicyName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expanded",
+            "in": "query",
+            "required": false,
+            "description": "return the object while expanding all the objects associated with it as well as all of it's children objects (entire sub-tree of this object).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "classinfo",
+            "in": "query",
+            "required": false,
+            "description": "return the meta-data/class information for this object's class. specifies what fields are mandatory, the value's data type, whether it's a list or a single value, etc.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "editinfo",
+            "in": "query",
+            "required": false,
+            "description": "same as classinfo, but with the addition of the actual values of the object.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "GETSmPolicyResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmPolicy"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SmPolicy"
+        ],
+        "operationId": "updateSmPolicybyname",
+        "summary": "Update SmPolicy",
+        "description": "Updates an SmPolicy object and returns the newly updated object.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmPolicyName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PUTSmPolicyResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmPolicy"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Updated SmPolicy object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmPolicy"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SmPolicy"
+        ],
+        "operationId": "deleteSmPolicybyname",
+        "summary": "Delete SmPolicy",
+        "description": "Deletes an SmPolicy object and returns empty response.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmPolicyName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmRealms": {
+      "get": {
+        "tags": [
+          "SmRealm"
+        ],
+        "operationId": "fetchSmRealms",
+        "summary": "Fetch SmRealms",
+        "description": "Returns list of SmRealm links",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{SmDomainName}/SmRealms": {
+      "post": {
+        "tags": [
+          "SmRealm"
+        ],
+        "operationId": "createSmRealm",
+        "summary": "Creates a new SmRealm",
+        "description": "Creates a new SmRealm and returns the newly created object.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "POSTSmRealmResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmRealm"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Created SmRealm object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmRealm"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{SmDomainName}/SmRealms/{SmRealmName}": {
+      "get": {
+        "tags": [
+          "SmRealm"
+        ],
+        "operationId": "fetchSmRealmbyname",
+        "summary": "Fetch SmRealm by name",
+        "description": "Returns single SmRealm object",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmRealmName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expanded",
+            "in": "query",
+            "required": false,
+            "description": "return the object while expanding all the objects associated with it as well as all of it's children objects (entire sub-tree of this object).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "classinfo",
+            "in": "query",
+            "required": false,
+            "description": "return the meta-data/class information for this object's class. specifies what fields are mandatory, the value's data type, whether it's a list or a single value, etc.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "editinfo",
+            "in": "query",
+            "required": false,
+            "description": "same as classinfo, but with the addition of the actual values of the object.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "GETSmRealmResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmRealm"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SmRealm"
+        ],
+        "operationId": "updateSmRealmbyname",
+        "summary": "Update SmRealm",
+        "description": "Updates an SmRealm object and returns the newly updated object.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmRealmName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PUTSmRealmResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmRealm"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Updated SmRealm object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmRealm"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SmRealm"
+        ],
+        "operationId": "deleteSmRealmbyname",
+        "summary": "Delete SmRealm",
+        "description": "Deletes an SmRealm object and returns empty response.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmRealmName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmResponses": {
+      "get": {
+        "tags": [
+          "SmResponse"
+        ],
+        "operationId": "fetchSmResponses",
+        "summary": "Fetch SmResponses",
+        "description": "Returns list of SmResponse links",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{SmDomainName}/SmResponses": {
+      "post": {
+        "tags": [
+          "SmResponse"
+        ],
+        "operationId": "createSmResponse",
+        "summary": "Creates a new SmResponse",
+        "description": "Creates a new SmResponse and returns the newly created object.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "POSTSmResponseResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmResponse"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Created SmResponse object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmResponse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{SmDomainName}/SmResponses/{SmResponseName}": {
+      "get": {
+        "tags": [
+          "SmResponse"
+        ],
+        "operationId": "fetchSmResponsebyname",
+        "summary": "Fetch SmResponse by name",
+        "description": "Returns single SmResponse object",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmResponseName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expanded",
+            "in": "query",
+            "required": false,
+            "description": "return the object while expanding all the objects associated with it as well as all of it's children objects (entire sub-tree of this object).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "classinfo",
+            "in": "query",
+            "required": false,
+            "description": "return the meta-data/class information for this object's class. specifies what fields are mandatory, the value's data type, whether it's a list or a single value, etc.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "editinfo",
+            "in": "query",
+            "required": false,
+            "description": "same as classinfo, but with the addition of the actual values of the object.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "GETSmResponseResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmResponse"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SmResponse"
+        ],
+        "operationId": "updateSmResponsebyname",
+        "summary": "Update SmResponse",
+        "description": "Updates an SmResponse object and returns the newly updated object.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmResponseName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PUTSmResponseResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmResponse"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Updated SmResponse object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmResponse"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SmResponse"
+        ],
+        "operationId": "deleteSmResponsebyname",
+        "summary": "Delete SmResponse",
+        "description": "Deletes an SmResponse object and returns empty response.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmResponseName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmRules": {
+      "get": {
+        "tags": [
+          "SmRule"
+        ],
+        "operationId": "fetchSmRules",
+        "summary": "Fetch SmRules",
+        "description": "Returns list of SmRule links",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{SmDomainName}/SmRealms/{SmRealmName}/SmRules": {
+      "post": {
+        "tags": [
+          "SmRule"
+        ],
+        "operationId": "createSmRule",
+        "summary": "Creates a new SmRule",
+        "description": "Creates a new SmRule and returns the newly created object.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmRealmName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "POSTSmRuleResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmRule"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Created SmRule object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmRule"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{SmDomainName}/SmRealms/{SmRealmName}/SmRules/{SmRuleName}": {
+      "get": {
+        "tags": [
+          "SmRule"
+        ],
+        "operationId": "fetchSmRulebyname",
+        "summary": "Fetch SmRule by name",
+        "description": "Returns single SmRule object",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmRealmName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmRuleName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expanded",
+            "in": "query",
+            "required": false,
+            "description": "return the object while expanding all the objects associated with it as well as all of it's children objects (entire sub-tree of this object).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "classinfo",
+            "in": "query",
+            "required": false,
+            "description": "return the meta-data/class information for this object's class. specifies what fields are mandatory, the value's data type, whether it's a list or a single value, etc.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "editinfo",
+            "in": "query",
+            "required": false,
+            "description": "same as classinfo, but with the addition of the actual values of the object.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "GETSmRuleResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmRule"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SmRule"
+        ],
+        "operationId": "updateSmRulebyname",
+        "summary": "Update SmRule",
+        "description": "Updates an SmRule object and returns the newly updated object.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmRealmName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmRuleName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PUTSmRuleResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmRule"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Updated SmRule object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmRule"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SmRule"
+        ],
+        "operationId": "deleteSmRulebyname",
+        "summary": "Delete SmRule",
+        "description": "Deletes an SmRule object and returns empty response.",
+        "parameters": [
+          {
+            "name": "SmDomainName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmRealmName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SmRuleName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmUserDirectories": {
+      "post": {
+        "tags": [
+          "SmUserDirectory"
+        ],
+        "operationId": "createSmUserDirectory",
+        "summary": "Creates a new SmUserDirectory",
+        "description": "Creates a new SmUserDirectory and returns the newly created object.",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "POSTSmUserDirectoryResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmUserDirectory"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Created SmUserDirectory object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmUserDirectory"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "SmUserDirectory"
+        ],
+        "operationId": "fetchSmUserDirectories",
+        "summary": "Fetch SmUserDirectories",
+        "description": "Returns list of SmUserDirectory links",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmUserDirectories/{SmUserDirectoryName}": {
+      "get": {
+        "tags": [
+          "SmUserDirectory"
+        ],
+        "operationId": "fetchSmUserDirectorybyname",
+        "summary": "Fetch SmUserDirectory by name",
+        "description": "Returns single SmUserDirectory object",
+        "parameters": [
+          {
+            "name": "SmUserDirectoryName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expanded",
+            "in": "query",
+            "required": false,
+            "description": "return the object while expanding all the objects associated with it as well as all of it's children objects (entire sub-tree of this object).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "classinfo",
+            "in": "query",
+            "required": false,
+            "description": "return the meta-data/class information for this object's class. specifies what fields are mandatory, the value's data type, whether it's a list or a single value, etc.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "editinfo",
+            "in": "query",
+            "required": false,
+            "description": "same as classinfo, but with the addition of the actual values of the object.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "GETSmUserDirectoryResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmUserDirectory"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SmUserDirectory"
+        ],
+        "operationId": "updateSmUserDirectorybyname",
+        "summary": "Update SmUserDirectory",
+        "description": "Updates an SmUserDirectory object and returns the newly updated object.",
+        "parameters": [
+          {
+            "name": "SmUserDirectoryName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PUTSmUserDirectoryResponse",
+                  "required": [
+                    "responseType",
+                    "data"
+                  ],
+                  "properties": {
+                    "responseType": {
+                      "description": "Indicates that data contains object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SmUserDirectory"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Response"
+          }
+        },
+        "requestBody": {
+          "description": "Updated SmUserDirectory object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmUserDirectory"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SmUserDirectory"
+        ],
+        "operationId": "deleteSmUserDirectorybyname",
+        "summary": "Delete SmUserDirectory",
+        "description": "Deletes an SmUserDirectory object and returns empty response.",
+        "parameters": [
+          {
+            "name": "SmUserDirectoryName",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "default": {
+            "description": "Response"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SmAgent": {
+        "type": "object",
+        "description": "Defines an agent object that establishes a Web Agent identity",
+        "required": [
+          "AgentTypeLink",
+          "Name",
+          "RealmHintAttrId"
+        ],
+        "properties": {
+          "AgentTypeLink": {
+            "description": "Reference to an agent type object that defines the type of the agent",
+            "$ref": "#/components/schemas/link"
+          },
+          "Name": {
+            "description": "Specifies the name of the agent object",
+            "type": "string",
+            "maxLength": 255
+          },
+          "Tags": {
+            "description": "Assign values to the list of tags that are associated with the agent in the format <Tag_id=value>",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "RealmHintAttrId": {
+            "description": "(RADIUS agents only) A RADIUS attribute that is sent by the RADIUS client device",
+            "type": "integer",
+            "format": "int32"
+          },
+          "Desc": {
+            "description": "A description of the object",
+            "type": "string"
+          }
+        }
+      },
+      "SmRule": {
+        "type": "object",
+        "description": "Defines a rule object",
+        "required": [
+          "RegularExpression",
+          "AllowAccess",
+          "IsEnabled",
+          "Actions",
+          "Name"
+        ],
+        "properties": {
+          "RegularExpression": {
+            "description": "Flag to perform regular expression pattern matching. Regular expressions are text patterns used for string matching",
+            "type": "boolean"
+          },
+          "TimeRestriction": {
+            "description": "An array containing time restrictions",
+            "type": "string"
+          },
+          "AllowAccess": {
+            "description": "(Optional) Specifies whether the rule allows or denies access to the resource",
+            "type": "boolean"
+          },
+          "ActiveExprString": {
+            "description": "Active expression associated with the rule. The expression is a string of variable definitions in the following format: The non-alphanumeric characters are required characters. For example: <@lib=\"LibName\" func=\"FuncName\" param=\"FuncParam\"@>. In the format example: LibName is the name of the shared library that supports the Active Rule; FuncName is the name of the actual function in the shared library that implements the Active Rule; FuncParam is an optional list of parameters to be passed to the function in the shared library",
+            "type": "string"
+          },
+          "IsEnabled": {
+            "description": "Flag to enable or disable the rule",
+            "type": "boolean"
+          },
+          "Actions": {
+            "description": "The type of action the rule is executing. The supported Web Agent Actions consist of the following HTTP operations: Get, Put, and Post",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Resource": {
+            "description": "Resource protected by the rule",
+            "type": "string"
+          },
+          "Desc": {
+            "description": "A brief description of the rule object",
+            "type": "string"
+          },
+          "Name": {
+            "description": "The name of the rule object",
+            "type": "string",
+            "maxLength": 255
+          }
+        }
+      },
+      "SmDomain": {
+        "type": "object",
+        "description": "Defines a domain object",
+        "required": [
+          "Name"
+        ],
+        "properties": {
+          "IsDLP": {
+            "type": "boolean"
+          },
+          "Desc": {
+            "description": "A brief description of the domain object",
+            "type": "string"
+          },
+          "UserDirectoriesLink": {
+            "description": "Specifies the user directories associated with the domain",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/link"
+            }
+          },
+          "Mode": {
+            "description": "A bit mask that defines the purpose of the domain",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "GlobalPoliciesApply",
+                "Global",
+                "Hidden",
+                "Administration"
+              ]
+            }
+          },
+          "DLPExcludedClassificationList": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "Tags": {
+            "description": "Assign values to the list of tags that are associated with the domain in the format <Tag_id=value>",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "IsAffiliate": {
+            "description": "Specifies whether the domain is an affiliate domain",
+            "type": "boolean"
+          },
+          "Name": {
+            "description": "The name of the domain object",
+            "type": "string",
+            "maxLength": 255
+          }
+        }
+      },
+      "SmRealm": {
+        "type": "object",
+        "description": "Defines a realm object",
+        "required": [
+          "ProcessAuthEvents",
+          "ProtectAll",
+          "SessionType",
+          "SyncAudit",
+          "Name",
+          "IdleTimeout",
+          "ProcessAzEvents",
+          "SessionDrift",
+          "MaxTimeout"
+        ],
+        "properties": {
+          "ProcessAuthEvents": {
+            "description": "Boolean to trigger this rule in an event of authentication attempts. Authentication event processing affects performance. If no rules in the realm are triggered by authentication events, set this field to false",
+            "type": "boolean"
+          },
+          "Desc": {
+            "description": "A brief description of the realm object",
+            "type": "string"
+          },
+          "ResourceFilter": {
+            "description": "Path for the resource filter",
+            "type": "string"
+          },
+          "ProtectAll": {
+            "description": "Boolean to protect all the resources contained in the new realm",
+            "type": "boolean"
+          },
+          "MinUserConfidenceLevel": {
+            "description": "Used for risk calculation during authorization",
+            "type": "integer",
+            "format": "int32"
+          },
+          "SessionType": {
+            "description": "Indicates the persistence mode for this realm",
+            "type": "string",
+            "enum": [
+              "Non-peristent",
+              "Peristent"
+            ]
+          },
+          "SelfRegLink": {
+            "$ref": "#/components/schemas/link"
+          },
+          "AgentLink": {
+            "description": "Reference to the agent associated with the realm",
+            "$ref": "#/components/schemas/link"
+          },
+          "AuthSchemeLink": {
+            "description": "Reference to the authentication scheme associated with the realm",
+            "$ref": "#/components/schemas/link"
+          },
+          "SyncAudit": {
+            "description": "Boolean to enable synchronous auditing. When enabled, users cannot access resources within a realm until their activity has been successfully recorded in the audit logs of both the Policy Server and the Web Agent",
+            "type": "boolean"
+          },
+          "ParentRealmLink": {
+            "description": "Reference to the parent realm for a nested realm",
+            "$ref": "#/components/schemas/link"
+          },
+          "Name": {
+            "description": "The name of the realm object. \t",
+            "type": "string",
+            "maxLength": 255
+          },
+          "IdleTimeout": {
+            "description": "Amount of time a user can remain authenticated for the protected resources in the realm without interacting with the resources before they must re-authenticate",
+            "type": "integer",
+            "format": "int32"
+          },
+          "AgentGroupLink": {
+            "description": "Reference to the agent group associated with the realm",
+            "$ref": "#/components/schemas/link"
+          },
+          "ProcessAzEvents": {
+            "description": "Boolean to trigger this rule in an event of authorization attempts. Authorization event processing affects performance. If no rules in the realm are triggered by authorization events, set this field to false",
+            "type": "boolean"
+          },
+          "SessionDrift": {
+            "description": "The validation period in seconds of a persistent realm",
+            "type": "integer",
+            "format": "int32"
+          },
+          "AuthorizationMappingLink": {
+            "description": "Reference to rules for locating users during authorization",
+            "$ref": "#/components/schemas/link"
+          },
+          "MaxTimeout": {
+            "description": "Maximum amount of time a user can access the protected resources in the realm before they must re-authenticate",
+            "type": "integer",
+            "format": "int32"
+          },
+          "ValidationMappingLink": {
+            "description": "Reference to rules for locating users during Validation",
+            "$ref": "#/components/schemas/link"
+          },
+          "AzUserDirLink": {
+            "description": "Reference to the directory against which users accessing resources in this realm will be authorized. ",
+            "$ref": "#/components/schemas/link"
+          },
+          "SessionAssuranceLink": {
+            "description": "Reference to data intended to avoid session replay attacks",
+            "$ref": "#/components/schemas/link"
+          }
+        }
+      },
+      "SmPolicy": {
+        "type": "object",
+        "description": "Defines a policy object",
+        "required": [
+          "IsEnabled",
+          "AllowAccess",
+          "Name"
+        ],
+        "properties": {
+          "VariablesLink": {
+            "description": "Linked list of variable OIDs used by this expression",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/link"
+            }
+          },
+          "ValidateIdDifferentUser": {
+            "type": "boolean"
+          },
+          "ValidateIdentity": {
+            "description": "Indicates whether users must reauthenticate when requesting access to this resource even if their session is valid",
+            "type": "boolean"
+          },
+          "ValidateIdTimeDelay": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "VariableExprString": {
+            "description": "Unique object identifier that corresponds to a variable type",
+            "type": "string"
+          },
+          "IPAddresses": {
+            "description": "IP addresses that user must use in order to gain access to the resources governed by the policy",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ActiveExprString": {
+            "description": "Active expression associated with the policy. The expression is a string of variable definitions in the following format: The non-alphanumeric characters are required characters. For example:<@lib=\"LibName\" func=\"FuncName\" param=\"FuncParam\"@>. In the format example: LibName is the name of the shared library that supports the Active Policy; FuncName is the name of the actual function in the shared library that implements the Active Policy; FuncParam is an optional list of parameters to be passed to the function in the shared library",
+            "type": "string"
+          },
+          "IsEnabled": {
+            "description": "Specifies whether the policy is enabled",
+            "type": "boolean"
+          },
+          "AllowAccess": {
+            "type": "boolean"
+          },
+          "Name": {
+            "description": "The name of the policy object",
+            "type": "string",
+            "maxLength": 255
+          },
+          "TimeRestriction": {
+            "description": "An array containing time restrictions",
+            "type": "string"
+          },
+          "Desc": {
+            "description": "A brief description of the policy object",
+            "type": "string"
+          },
+          "SmUserPolicies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SmUserPolicy"
+            }
+          },
+          "SmPolicyLinks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SmPolicyLink"
+            }
+          }
+        }
+      },
+      "SmUserDirectory": {
+        "type": "object",
+        "description": "Defines a user directory object",
+        "required": [
+          "SearchScope",
+          "SearchTimeout",
+          "SecureConnection",
+          "Namespace",
+          "RequireCredentials",
+          "SearchResults",
+          "Server",
+          "EnableSecurityContext",
+          "Name"
+        ],
+        "properties": {
+          "SearchScope": {
+            "description": "The extent to which SiteMinder looks for users and user groups below SearchRoot in an LDAP directory - all levels below the root (subtree) or just one level below the root. Specify 1 for one level down or 2 for subtree",
+            "type": "string",
+            "enum": [
+              "OneLevel",
+              "Base",
+              "SubTree"
+            ]
+          },
+          "SearchTimeout": {
+            "description": "The maximum amount of time, in seconds, to query an LDAP or custom directory",
+            "type": "integer",
+            "format": "int32"
+          },
+          "UserLookupStart": {
+            "description": "The User DN Lookup Start allows users to authenticate by entering only a part of the user name, without having to enter an entire DN string. Identifying unique and non-unique segments of the user DN string does this. Use this field with LDAP directories only",
+            "type": "string"
+          },
+          "Desc": {
+            "description": "A brief description of the user directory object",
+            "type": "string"
+          },
+          "SecureConnection": {
+            "description": "Specifies whether the directory is accessed over SSL. Enabling Secure Connect means that SiteMinder performs secure authentication and encrypted transmissions",
+            "type": "boolean"
+          },
+          "GuidAttribute": {
+            "description": "Name of the user directory attribute that has been designated as the Universal ID. Typically, the Universal ID differs from the user's login ID, and the Universal ID is used to look up user information. Applies to LDAP, ODBC, and WinNT directories, and possibly to custom directories",
+            "type": "string"
+          },
+          "PasswordAttribute": {
+            "description": "Name of the user directory attribute that contains the user password, as defined using Password Services. Applies to LDAP and ODBC directories, and possibly to custom directories",
+            "type": "string"
+          },
+          "EmailAddrAttribute": {
+            "description": "Name of the user directory attribute that contains the user email address",
+            "type": "string"
+          },
+          "Namespace": {
+            "description": "Designates the specific directory service being connected to (for example, LDAP:, ODBC:, WinNT:, AD:, or Custom:)",
+            "type": "string"
+          },
+          "RequireCredentials": {
+            "description": "Specifies whether credentials are necessary to authenticate against a user directory",
+            "type": "boolean"
+          },
+          "BlobAttribute": {
+            "description": "Name of the binary user directory attribute that is used for storing a user's password history. ",
+            "type": "string"
+          },
+          "SearchResults": {
+            "description": "The maximum number of records that can be returned from a search of an LDAP or custom directory",
+            "type": "integer",
+            "format": "int32"
+          },
+          "Server": {
+            "description": "Overloaded parameter whose contents depend upon the namespace: ODBC - Data source name; NT - Domain name; LDAP or AD - An IP address or an IP address and port number in the format IP_address:port_number. The port number 389 is assumed if no port number is specified; Custom - Library name",
+            "type": "string"
+          },
+          "Username": {
+            "description": "The user name needed to access a user directory",
+            "type": "string"
+          },
+          "SearchRoot": {
+            "description": "One of the following values: For LDAP directories, the location in the LDAP tree that serves as the starting point for the directory connection-typically, an organization (o) or organizational unit (ou). The Policy Server begins searching at the root when locating a user; For custom directories, any parameters to pass to the custom library",
+            "type": "string"
+          },
+          "PhoneNoAttribute": {
+            "type": "string"
+          },
+          "EnableSecurityContext": {
+            "description": "Enables the Windows User Security Context",
+            "type": "boolean"
+          },
+          "UserObjectFilter": {
+            "description": "Specifies a string that is a directory-specific class filter. This value is optional and overrides the global setting in the UserClassFilters registry",
+            "type": "string"
+          },
+          "DisabledAttribute": {
+            "description": "Name of the user directory attribute that SiteMinder uses to keep track of the enabled or disabled state of a user. Applies to LDAP and ODBC directories, and possibly to custom directories",
+            "type": "string"
+          },
+          "UserObjectClass": {
+            "description": "Specifies a string that is added to any LDAP search filter when searching for a user. This attribute is optional to the directory object",
+            "type": "string"
+          },
+          "DynamicGroupSearchAttribute": {
+            "description": "Provide the attribute name to be used for dynamic group search in LDAP directories",
+            "type": "string"
+          },
+          "UserLookupEnd": {
+            "description": "The User DN Lookup End allows users to authenticate by entering only a part of the user name, without having to enter an entire whole DN string. Use this field with LDAP directories only",
+            "type": "string"
+          },
+          "UniversalIDAttribute": {
+            "description": "Name of the user directory attribute that has been designated as the Universal ID. Typically, the Universal ID differs from the user's login ID, and the Universal ID is used to look up user information. Applies to LDAP, ODBC, and WinNT directories, and possibly to custom directories",
+            "type": "string"
+          },
+          "ODBCQueryLink": {
+            "description": "Reference to an ODBC Query",
+            "$ref": "#/components/schemas/link"
+          },
+          "ChallengeRespAttribute": {
+            "description": "Name of the user directory attribute that contains a response to return to the user, such as a hint for a forgotten password. Applies to LDAP directories, and possibly to custom directories",
+            "type": "string"
+          },
+          "UseAdvancedAuthStore": {
+            "description": "Specifies whether Advanced Authentication database connection information is used",
+            "type": "boolean"
+          },
+          "Password": {
+            "description": "The password needed to access a user directory",
+            "type": "string",
+            "format": "password"
+          },
+          "CloseRelatedConnectionOnFailure": {
+            "description": "If this is set to true (default value), all connection handles with the same server name will be terminated when the first communication failure occurs during runtime",
+            "type": "boolean"
+          },
+          "PoolSize": {
+            "description": "Defines the number of connection sets to be created for a primary server in each failover group. Enter a value between 1 and 32. Default value is 1",
+            "type": "integer",
+            "format": "int32"
+          },
+          "UsePasswordVault": {
+            "type": "boolean"
+          },
+          "Name": {
+            "description": "The name of the user directory object",
+            "type": "string",
+            "maxLength": 255
+          }
+        }
+      },
+      "SmAuthScheme": {
+        "type": "object",
+        "description": "Defines an authentication scheme. ",
+        "required": [
+          "IgnorePwCheck",
+          "AuthSchemeType",
+          "AllowSaveCreds",
+          "IsTemplate",
+          "IsUsedbyAdmin",
+          "IsRadius",
+          "Name",
+          "Level"
+        ],
+        "properties": {
+          "IgnorePwCheck": {
+            "type": "boolean"
+          },
+          "IPList": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "CertificateLink": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/link"
+            }
+          },
+          "AMRTypeLink": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/link"
+            }
+          },
+          "AllowAuthLevelOverride": {
+            "description": "If true, the Authentication Scheme will be able to set the Authentication Level value in the user's Session Ticket",
+            "type": "boolean"
+          },
+          "ExprString": {
+            "type": "string"
+          },
+          "IPCheck": {
+            "type": "boolean"
+          },
+          "SupportsValidateIdentity": {
+            "type": "boolean"
+          },
+          "Secret": {
+            "description": "The text string to be used as the secret for RADIUS authentication schemes",
+            "type": "string",
+            "format": "password"
+          },
+          "AuthSchemeType": {
+            "description": "The authentication scheme type",
+            "type": "string",
+            "enum": [
+              "X509Cert",
+              "X509CertAndBasic",
+              "NTLM",
+              "ACE",
+              "HTMLForm",
+              "X509CertOrBasic",
+              "HTMLFormSafeWord",
+              "Anonymous",
+              "BasicSSL",
+              "X509CertOrForm",
+              "RADIUS",
+              "SafeWord",
+              "Custom",
+              "Unknown",
+              "HTMLFormACE",
+              "RadiusChapPap",
+              "XMLDsig",
+              "X509CertAndForm",
+              "MSPassport",
+              "XMLDocumentCredentialCollector",
+              "SAML",
+              "SAMLSessionTicket",
+              "CryptoCard",
+              "WSSecurity",
+              "Encotone",
+              "SAMLArtifact",
+              "Impersonation",
+              "Basic",
+              "IMFramework",
+              "AdvAuth",
+              "JWT",
+              "Kerberos",
+              "WebAuthn",
+              "SAMLPOST",
+              "ExternalAuthenticationService",
+              "OIDCRPAUTH",
+              "OAuth",
+              "WSFED",
+              "OpenID",
+              "SAML2",
+              "VIPAuthenticationService",
+              "AuthChaining"
+            ]
+          },
+          "AllowSaveCreds": {
+            "description": "Specifies whether the scheme is allowed to save user credentials. (X509 Client Cert and Basic scheme only)",
+            "type": "boolean"
+          },
+          "ExternalOIDCProviderConfigLink": {
+            "$ref": "#/components/schemas/link"
+          },
+          "PersistSessionVars": {
+            "description": "Specifies that the authentication context data is saved in the session store as session variables. The Policy Server has access to these variables for use in authentication decisions",
+            "type": "boolean"
+          },
+          "IsTemplate": {
+            "description": "This scheme object is not to be used directly. It is used as a template to create other schemes",
+            "type": "boolean"
+          },
+          "IsUsedbyAdmin": {
+            "description": "Specifies whether the scheme is used for SiteMinder Administrators",
+            "type": "boolean"
+          },
+          "PrimaryAuthSchemeLink": {
+            "$ref": "#/components/schemas/link"
+          },
+          "Desc": {
+            "description": "A brief description of the authentication scheme",
+            "type": "string"
+          },
+          "IsRadius": {
+            "description": "specifies whether the authentication scheme supports RADIUS agents",
+            "type": "boolean"
+          },
+          "DyncPWDBlobMgmnt": {
+            "type": "string",
+            "enum": [
+              "AllowPWDBlobOverride",
+              "Default",
+              "IgnorePWDBlobUpdateOnSuccess"
+            ]
+          },
+          "Library": {
+            "description": "The library that the Policy Server uses to process authentication",
+            "type": "string"
+          },
+          "Param": {
+            "description": "A string which will be processed by the authentication library",
+            "type": "string"
+          },
+          "Name": {
+            "description": "The name of the authentication scheme",
+            "type": "string",
+            "maxLength": 255
+          },
+          "Level": {
+            "description": "A protection level from 1 through 1000. Protection levels provide an additional measure of flexibility in access control",
+            "type": "integer",
+            "format": "int32"
+          },
+          "SmXMLDSigIdPs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SmXMLDSigIdP"
+            }
+          },
+          "SmWSSecurityIdPs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SmWSSecurityIdP"
+            }
+          },
+          "SmXMLDCCIdPs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SmXMLDCCIdP"
+            }
+          }
+        }
+      },
+      "SmResponse": {
+        "type": "object",
+        "description": "Defines a response object. \t",
+        "required": [
+          "AgentTypeLink",
+          "AccessAccept",
+          "AccessReject",
+          "AccessChallenge",
+          "Name"
+        ],
+        "properties": {
+          "AgentTypeLink": {
+            "description": "Reference to an agent type object that defines the agent type",
+            "$ref": "#/components/schemas/link"
+          },
+          "AccessAccept": {
+            "type": "boolean"
+          },
+          "AccessReject": {
+            "type": "boolean"
+          },
+          "AccessChallenge": {
+            "type": "boolean"
+          },
+          "Name": {
+            "description": "The name of the response object.\t",
+            "type": "string",
+            "maxLength": 255
+          },
+          "Desc": {
+            "description": "A brief description of the response object",
+            "type": "string"
+          },
+          "SmResponseAttrs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SmResponseAttr"
+            }
+          }
+        }
+      }
+    }
+  }
+}

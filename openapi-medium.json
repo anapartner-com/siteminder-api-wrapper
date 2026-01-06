@@ -1,0 +1,83 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SiteMinder API",
+    "version": "1.0.0",
+    "description": "SiteMinder Policy Server API - Agents, Domains, Realms, Policies, Rules, and User Directories"
+  },
+  "servers": [{"url": "http://siteminder-api-wrapper:3001"}],
+  "paths": {
+    "/ca/api/sso/services/policy/v1/SmAgents": {
+      "get": {
+        "operationId": "listAgents",
+        "summary": "List all SiteMinder agents",
+        "responses": {"200": {"description": "List of agents"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAgents/{name}": {
+      "get": {
+        "operationId": "getAgent",
+        "summary": "Get a specific SiteMinder agent by name",
+        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"200": {"description": "Agent details"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains": {
+      "get": {
+        "operationId": "listDomains",
+        "summary": "List all SiteMinder domains",
+        "responses": {"200": {"description": "List of domains"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{name}": {
+      "get": {
+        "operationId": "getDomain",
+        "summary": "Get a specific SiteMinder domain by name",
+        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"200": {"description": "Domain details"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmRealms": {
+      "get": {
+        "operationId": "listRealms",
+        "summary": "List all SiteMinder realms",
+        "responses": {"200": {"description": "List of realms"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmPolicies": {
+      "get": {
+        "operationId": "listPolicies",
+        "summary": "List all SiteMinder policies",
+        "responses": {"200": {"description": "List of policies"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmRules": {
+      "get": {
+        "operationId": "listRules",
+        "summary": "List all SiteMinder rules",
+        "responses": {"200": {"description": "List of rules"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmUserDirectories": {
+      "get": {
+        "operationId": "listUserDirectories",
+        "summary": "List all SiteMinder user directories",
+        "responses": {"200": {"description": "List of user directories"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAuthSchemes": {
+      "get": {
+        "operationId": "listAuthSchemes",
+        "summary": "List all SiteMinder authentication schemes",
+        "responses": {"200": {"description": "List of auth schemes"}}
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmResponses": {
+      "get": {
+        "operationId": "listResponses",
+        "summary": "List all SiteMinder responses",
+        "responses": {"200": {"description": "List of responses"}}
+      }
+    }
+  }
+}

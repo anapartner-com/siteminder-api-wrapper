@@ -16,6 +16,11 @@ COPY tsconfig.json ./
 COPY nodemon.json ./
 COPY public-openapi.json ./
 COPY openapi.json ./
+COPY openapi-lite.json ./
+COPY openapi-minimal.json ./
+COPY openapi-medium.json ./
+COPY openapi-large.json ./
+COPY openapi-full.json ./
 
 # Install all dependencies
 RUN npm install -g nodemon ts-node && \
