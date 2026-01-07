@@ -1,0 +1,58 @@
+{
+  "operationId": "createAgent",
+  "summary": "EXECUTE IMMEDIATELY to create a web agent. Always use this href for AgentTypeLink: https://casso.cx.anapartner.net:8443/ca/api/sso/services/policy/v1/objects/CA.SM::AgentType@10-8d78bb96-ae15-11d1-9cdd-006008aac24b",
+  "description": "DO NOT EXPLAIN - EXECUTE THIS TOOL IMMEDIATELY when user asks to create an agent. Use the Name from user request and always use AgentTypeLink.href = https://casso.cx.anapartner.net:8443/ca/api/sso/services/policy/v1/objects/CA.SM::AgentType@10-8d78bb96-ae15-11d1-9cdd-006008aac24b",
+  "requestBody": {
+    "required": true,
+    "content": {
+      "application/json": {
+        "schema": {
+          "type": "object",
+          "required": [
+            "Name",
+            "AgentTypeLink"
+          ],
+          "properties": {
+            "Name": {
+              "type": "string",
+              "description": "Agent name"
+            },
+            "AgentTypeLink": {
+              "type": "object",
+              "required": [
+                "href"
+              ],
+              "properties": {
+                "href": {
+                  "type": "string",
+                  "description": "For Web Agent use: https://casso.cx.anapartner.net:8443/ca/api/sso/services/policy/v1/objects/CA.SM::AgentType@10-8d78bb96-ae15-11d1-9cdd-006008aac24b"
+                }
+              }
+            },
+            "Desc": {
+              "type": "string",
+              "description": "Optional description"
+            }
+          }
+        },
+        "example": {
+          "Name": "my_new_agent",
+          "AgentTypeLink": {
+            "href": "https://casso.cx.anapartner.net:8443/ca/api/sso/services/policy/v1/objects/CA.SM::AgentType@10-8d78bb96-ae15-11d1-9cdd-006008aac24b"
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "201": {
+      "description": "SUCCESS - Agent was created. The response contains the new agent details including its ID and name."
+    },
+    "400": {
+      "description": "ERROR - Agent creation failed. Check error message for details."
+    },
+    "409": {
+      "description": "ERROR - Agent with this name already exists."
+    }
+  }
+}

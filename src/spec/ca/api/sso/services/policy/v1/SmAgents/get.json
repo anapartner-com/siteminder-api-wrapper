@@ -1,0 +1,9 @@
+{
+  "operationId": "listAgents",
+  "summary": "List all SiteMinder web agents",
+  "responses": {
+    "200": {
+      "description": "List of agents"
+    }
+  }
+}
