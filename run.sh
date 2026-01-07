@@ -4,8 +4,9 @@ case $1 in
 	  docker build --build-arg USER_UID="$(id -u)" --build-arg USER_GID="$(id -g)" --no-cache -t ${image}:latest .
     ;;
   "start")
+  #-p 3001:3000 \
     docker run -d --rm \
-  -p 3001:3000 \
+	    --network web \
   -v $(pwd)/src:/app/src \
   --name ${image} \
   ${image}:latest
