@@ -1,0 +1,9 @@
+{
+  "operationId": "listAuthMethodGroups",
+  "summary": "List all authentication method groups",
+  "responses": {
+    "200": {
+      "description": "List of auth method groups"
+    }
+  }
+}

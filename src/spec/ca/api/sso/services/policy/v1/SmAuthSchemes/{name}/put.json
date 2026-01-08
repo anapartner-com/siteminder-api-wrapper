@@ -1,0 +1,29 @@
+{
+  "operationId": "updateAuthScheme",
+  "summary": "Update an authentication scheme",
+  "parameters": [
+    {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "required": true,
+    "content": {
+      "application/json": {
+        "schema": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "description": "Auth scheme updated"
+    }
+  }
+}

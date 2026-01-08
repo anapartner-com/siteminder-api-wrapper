@@ -1,0 +1,9 @@
+{
+  "operationId": "listRealms",
+  "summary": "List all protected realms",
+  "responses": {
+    "200": {
+      "description": "List of realms"
+    }
+  }
+}

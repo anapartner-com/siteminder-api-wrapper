@@ -14,8 +14,10 @@ services:
       - "sps.ab.anapartner.net:34.122.218.6"
       - "smheaders.abapps.anapartner.net:34.122.218.6"
       - "test.abapps.anapartner.net:34.122.218.6"
+    volumes:
+      - ./src/spec:/app/src/spec:ro
     environment:
-      - NODE_ENV=${NODE_ENV:-production}
+      - NODE_ENV=${NODE_ENV:-development}
       - PORT=${PORT:-3001}
       - HOST=0.0.0.0
       - SITEMINDER_BASE_URL=${SITEMINDER_BASE_URL:-https://casso.cx.anapartner.net}

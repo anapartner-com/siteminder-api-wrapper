@@ -1,0 +1,9 @@
+{
+  "operationId": "listResponseGroups",
+  "summary": "List all response groups",
+  "responses": {
+    "200": {
+      "description": "List of response groups"
+    }
+  }
+}

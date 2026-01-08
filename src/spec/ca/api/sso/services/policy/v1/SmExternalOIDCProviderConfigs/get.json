@@ -1,0 +1,9 @@
+{
+  "operationId": "listOIDCProviders",
+  "summary": "List all external OIDC provider configurations",
+  "responses": {
+    "200": {
+      "description": "List of OIDC providers"
+    }
+  }
+}

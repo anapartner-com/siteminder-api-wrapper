@@ -1,0 +1,19 @@
+{
+  "operationId": "createAdmin",
+  "summary": "Create a new administrator",
+  "requestBody": {
+    "required": true,
+    "content": {
+      "application/json": {
+        "schema": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "201": {
+      "description": "Admin created"
+    }
+  }
+}

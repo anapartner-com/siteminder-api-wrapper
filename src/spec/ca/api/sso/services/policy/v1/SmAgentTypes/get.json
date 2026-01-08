@@ -1,0 +1,9 @@
+{
+  "operationId": "listAgentTypes",
+  "summary": "List all agent types",
+  "responses": {
+    "200": {
+      "description": "List of agent types"
+    }
+  }
+}

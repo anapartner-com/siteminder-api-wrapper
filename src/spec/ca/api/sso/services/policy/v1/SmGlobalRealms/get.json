@@ -1,0 +1,9 @@
+{
+  "operationId": "listGlobalRealms",
+  "summary": "List all global realms",
+  "responses": {
+    "200": {
+      "description": "List of global realms"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "operationId": "listPasswordPolicies",
+  "summary": "List all password policies",
+  "responses": {
+    "200": {
+      "description": "List of password policies"
+    }
+  }
+}

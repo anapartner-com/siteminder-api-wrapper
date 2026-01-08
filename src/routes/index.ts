@@ -5,6 +5,7 @@ import * as path from 'path';
 import { config } from '../config';
 import { tokenManager } from '../services/tokenManager';
 import { logger } from '../utils/logger';
+import { buildSpec, buildAndWriteSpec, getDefaultSpecDir, getDefaultOutputFile } from '../utils/specBuilder';
 
 const router = Router();
 
@@ -106,14 +107,14 @@ router.get('/openapi-minimal.json', (req: Request, res: Response) => {
   }
 });
 
-// OpenAPI 3.0 spec - FULL version for LLM tools (43 operations with CRUD)
+// OpenAPI 3.0 spec - FULL version for LLM tools (dynamically built from src/spec/)
 router.get('/openapi-full.json', (req: Request, res: Response) => {
   try {
     const serverUrl = `http://${req.get('host')}`;
-    const openapiPath = path.join(__dirname, '../../openapi-full.json');
+    const specDir = getDefaultSpecDir();
 
-    const openapiContent = fs.readFileSync(openapiPath, 'utf8');
-    const openapiSpec = JSON.parse(openapiContent);
+    // Build the spec dynamically from the modular directory structure
+    const { spec: openapiSpec, stats } = buildSpec(specDir);
 
     openapiSpec.servers = [
       {
@@ -122,11 +123,39 @@ router.get('/openapi-full.json', (req: Request, res: Response) => {
       }
     ];
 
+    logger.debug(`Served openapi-full.json: ${stats.paths} paths, ${stats.operations} operations`);
     res.json(openapiSpec);
   } catch (error: any) {
-    logger.error('Failed to load OpenAPI full spec:', error.message);
+    logger.error('Failed to build OpenAPI full spec:', error.message);
     res.status(500).json({
-      error: 'Failed to load OpenAPI full specification',
+      error: 'Failed to build OpenAPI full specification',
+      message: error.message
+    });
+  }
+});
+
+// Regenerate OpenAPI full spec from modular directory and write to file
+router.post('/openapi-full/regenerate', (_req: Request, res: Response) => {
+  try {
+    const specDir = getDefaultSpecDir();
+    const outputFile = getDefaultOutputFile();
+
+    const stats = buildAndWriteSpec(specDir, outputFile);
+
+    res.json({
+      success: true,
+      message: 'OpenAPI spec regenerated successfully',
+      stats: {
+        paths: stats.paths,
+        operations: stats.operations
+      },
+      outputFile
+    });
+  } catch (error: any) {
+    logger.error('Failed to regenerate OpenAPI spec:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to regenerate OpenAPI specification',
       message: error.message
     });
   }

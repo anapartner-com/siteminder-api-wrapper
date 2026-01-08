@@ -1,0 +1,9 @@
+{
+  "operationId": "listHostConfigs",
+  "summary": "List all host configurations",
+  "responses": {
+    "200": {
+      "description": "List of host configs"
+    }
+  }
+}

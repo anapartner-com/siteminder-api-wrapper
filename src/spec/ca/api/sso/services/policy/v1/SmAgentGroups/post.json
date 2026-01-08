@@ -1,0 +1,19 @@
+{
+  "operationId": "createAgentGroup",
+  "summary": "Create a new agent group",
+  "requestBody": {
+    "required": true,
+    "content": {
+      "application/json": {
+        "schema": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "201": {
+      "description": "Agent group created"
+    }
+  }
+}

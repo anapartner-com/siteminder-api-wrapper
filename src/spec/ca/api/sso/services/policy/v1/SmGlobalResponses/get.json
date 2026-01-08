@@ -1,0 +1,9 @@
+{
+  "operationId": "listGlobalResponses",
+  "summary": "List all global responses",
+  "responses": {
+    "200": {
+      "description": "List of global responses"
+    }
+  }
+}

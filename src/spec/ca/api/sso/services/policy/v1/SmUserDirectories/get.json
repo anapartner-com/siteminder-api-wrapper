@@ -1,0 +1,9 @@
+{
+  "operationId": "listUserDirectories",
+  "summary": "List all user directories",
+  "responses": {
+    "200": {
+      "description": "List of user directories"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "operationId": "listAffiliateDomains",
+  "summary": "List all affiliate domains",
+  "responses": {
+    "200": {
+      "description": "List of affiliate domains"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "operationId": "deleteAgentGroup",
+  "summary": "Delete an agent group",
+  "parameters": [
+    {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "204": {
+      "description": "Agent group deleted"
+    }
+  }
+}

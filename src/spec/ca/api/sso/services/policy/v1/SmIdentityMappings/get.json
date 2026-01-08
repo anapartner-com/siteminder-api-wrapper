@@ -1,0 +1,9 @@
+{
+  "operationId": "listIdentityMappings",
+  "summary": "List all identity mappings",
+  "responses": {
+    "200": {
+      "description": "List of identity mappings"
+    }
+  }
+}

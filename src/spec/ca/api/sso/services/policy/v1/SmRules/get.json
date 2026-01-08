@@ -1,0 +1,9 @@
+{
+  "operationId": "listRules",
+  "summary": "List all policy rules",
+  "responses": {
+    "200": {
+      "description": "List of rules"
+    }
+  }
+}

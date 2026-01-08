@@ -5,13 +5,194 @@
     "version": "1.0.0",
     "description": "Full SiteMinder Policy Server API - Read and Write operations for agents, domains, realms, policies, and more"
   },
-  "servers": [{"url": "http://siteminder-api-wrapper:3001"}],
+  "servers": [
+    {
+      "url": "http://siteminder-api-wrapper:3001"
+    }
+  ],
   "paths": {
+    "/ca/api/sso/services/policy/v1/SmAdmins": {
+      "get": {
+        "operationId": "listAdmins",
+        "summary": "List all SiteMinder administrators",
+        "responses": {
+          "200": {
+            "description": "List of admins"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createAdmin",
+        "summary": "Create a new administrator",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Admin created"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAdmins/{name}": {
+      "delete": {
+        "operationId": "deleteAdmin",
+        "summary": "Delete an administrator",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Admin deleted"
+          }
+        }
+      },
+      "get": {
+        "operationId": "getAdmin",
+        "summary": "Get administrator by name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Admin details"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAffiliateDomains": {
+      "get": {
+        "operationId": "listAffiliateDomains",
+        "summary": "List all affiliate domains",
+        "responses": {
+          "200": {
+            "description": "List of affiliate domains"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAgentConfigs": {
+      "get": {
+        "operationId": "listAgentConfigs",
+        "summary": "List all agent configurations",
+        "responses": {
+          "200": {
+            "description": "List of agent configs"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAgentGroups": {
+      "get": {
+        "operationId": "listAgentGroups",
+        "summary": "List all agent groups",
+        "responses": {
+          "200": {
+            "description": "List of agent groups"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createAgentGroup",
+        "summary": "Create a new agent group",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Agent group created"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAgentGroups/{name}": {
+      "delete": {
+        "operationId": "deleteAgentGroup",
+        "summary": "Delete an agent group",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Agent group deleted"
+          }
+        }
+      },
+      "get": {
+        "operationId": "getAgentGroup",
+        "summary": "Get agent group by name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent group details"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAgentTypes": {
+      "get": {
+        "operationId": "listAgentTypes",
+        "summary": "List all agent types",
+        "responses": {
+          "200": {
+            "description": "List of agent types"
+          }
+        }
+      }
+    },
     "/ca/api/sso/services/policy/v1/SmAgents": {
       "get": {
         "operationId": "listAgents",
         "summary": "List all SiteMinder web agents",
-        "responses": {"200": {"description": "List of agents"}}
+        "responses": {
+          "200": {
+            "description": "List of agents"
+          }
+        }
       },
       "post": {
         "operationId": "createAgent",
@@ -23,314 +204,507 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["Name", "AgentTypeLink"],
+                "required": [
+                  "Name",
+                  "AgentTypeLink"
+                ],
                 "properties": {
-                  "Name": {"type": "string", "description": "Agent name"},
+                  "Name": {
+                    "type": "string",
+                    "description": "Agent name"
+                  },
                   "AgentTypeLink": {
                     "type": "object",
-                    "required": ["href"],
+                    "required": [
+                      "href"
+                    ],
                     "properties": {
-                      "href": {"type": "string", "description": "For Web Agent use: https://casso.cx.anapartner.net:8443/ca/api/sso/services/policy/v1/objects/CA.SM::AgentType@10-8d78bb96-ae15-11d1-9cdd-006008aac24b"}
+                      "href": {
+                        "type": "string",
+                        "description": "For Web Agent use: https://casso.cx.anapartner.net:8443/ca/api/sso/services/policy/v1/objects/CA.SM::AgentType@10-8d78bb96-ae15-11d1-9cdd-006008aac24b"
+                      }
                     }
                   },
-                  "Desc": {"type": "string", "description": "Optional description"}
+                  "Desc": {
+                    "type": "string",
+                    "description": "Optional description"
+                  }
                 }
               },
               "example": {
                 "Name": "my_new_agent",
-                "AgentTypeLink": {"href": "https://casso.cx.anapartner.net:8443/ca/api/sso/services/policy/v1/objects/CA.SM::AgentType@10-8d78bb96-ae15-11d1-9cdd-006008aac24b"}
+                "AgentTypeLink": {
+                  "href": "https://casso.cx.anapartner.net:8443/ca/api/sso/services/policy/v1/objects/CA.SM::AgentType@10-8d78bb96-ae15-11d1-9cdd-006008aac24b"
+                }
               }
             }
           }
         },
         "responses": {
-          "201": {"description": "SUCCESS - Agent was created. The response contains the new agent details including its ID and name."},
-          "400": {"description": "ERROR - Agent creation failed. Check error message for details."},
-          "409": {"description": "ERROR - Agent with this name already exists."}
+          "201": {
+            "description": "SUCCESS - Agent was created. The response contains the new agent details including its ID and name."
+          },
+          "400": {
+            "description": "ERROR - Agent creation failed. Check error message for details."
+          },
+          "409": {
+            "description": "ERROR - Agent with this name already exists."
+          }
         }
       }
     },
     "/ca/api/sso/services/policy/v1/SmAgents/{name}": {
+      "delete": {
+        "operationId": "deleteAgent",
+        "summary": "Delete an agent",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Agent deleted"
+          }
+        }
+      },
       "get": {
         "operationId": "getAgent",
         "summary": "Get agent by name",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "responses": {"200": {"description": "Agent details"}}
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent details"
+          }
+        }
       },
       "put": {
         "operationId": "updateAgent",
         "summary": "Update an existing agent",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object"}}}},
-        "responses": {"200": {"description": "Agent updated"}}
-      },
-      "delete": {
-        "operationId": "deleteAgent",
-        "summary": "Delete an agent",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "responses": {"204": {"description": "Agent deleted"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmDomains": {
-      "get": {
-        "operationId": "listDomains",
-        "summary": "List all policy domains",
-        "responses": {"200": {"description": "List of domains"}}
-      },
-      "post": {
-        "operationId": "createDomain",
-        "summary": "Create a new policy domain",
-        "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object"}}}},
-        "responses": {"201": {"description": "Domain created"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmDomains/{name}": {
-      "get": {
-        "operationId": "getDomain",
-        "summary": "Get domain by name",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "responses": {"200": {"description": "Domain details"}}
-      },
-      "put": {
-        "operationId": "updateDomain",
-        "summary": "Update an existing domain",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object"}}}},
-        "responses": {"200": {"description": "Domain updated"}}
-      },
-      "delete": {
-        "operationId": "deleteDomain",
-        "summary": "Delete a domain",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "responses": {"204": {"description": "Domain deleted"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmRealms": {
-      "get": {
-        "operationId": "listRealms",
-        "summary": "List all protected realms",
-        "responses": {"200": {"description": "List of realms"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmPolicies": {
-      "get": {
-        "operationId": "listPolicies",
-        "summary": "List all access policies",
-        "responses": {"200": {"description": "List of policies"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmRules": {
-      "get": {
-        "operationId": "listRules",
-        "summary": "List all policy rules",
-        "responses": {"200": {"description": "List of rules"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmUserDirectories": {
-      "get": {
-        "operationId": "listUserDirectories",
-        "summary": "List all user directories",
-        "responses": {"200": {"description": "List of user directories"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmAuthSchemes": {
-      "get": {
-        "operationId": "listAuthSchemes",
-        "summary": "List all authentication schemes",
-        "responses": {"200": {"description": "List of auth schemes"}}
-      },
-      "post": {
-        "operationId": "createAuthScheme",
-        "summary": "Create a new authentication scheme",
-        "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object"}}}},
-        "responses": {"201": {"description": "Auth scheme created"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmAuthSchemes/{name}": {
-      "get": {
-        "operationId": "getAuthScheme",
-        "summary": "Get auth scheme by name",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "responses": {"200": {"description": "Auth scheme details"}}
-      },
-      "put": {
-        "operationId": "updateAuthScheme",
-        "summary": "Update an authentication scheme",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object"}}}},
-        "responses": {"200": {"description": "Auth scheme updated"}}
-      },
-      "delete": {
-        "operationId": "deleteAuthScheme",
-        "summary": "Delete an authentication scheme",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "responses": {"204": {"description": "Auth scheme deleted"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmResponses": {
-      "get": {
-        "operationId": "listResponses",
-        "summary": "List all response objects",
-        "responses": {"200": {"description": "List of responses"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmAgentGroups": {
-      "get": {
-        "operationId": "listAgentGroups",
-        "summary": "List all agent groups",
-        "responses": {"200": {"description": "List of agent groups"}}
-      },
-      "post": {
-        "operationId": "createAgentGroup",
-        "summary": "Create a new agent group",
-        "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object"}}}},
-        "responses": {"201": {"description": "Agent group created"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmAgentGroups/{name}": {
-      "get": {
-        "operationId": "getAgentGroup",
-        "summary": "Get agent group by name",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "responses": {"200": {"description": "Agent group details"}}
-      },
-      "delete": {
-        "operationId": "deleteAgentGroup",
-        "summary": "Delete an agent group",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "responses": {"204": {"description": "Agent group deleted"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmAgentConfigs": {
-      "get": {
-        "operationId": "listAgentConfigs",
-        "summary": "List all agent configurations",
-        "responses": {"200": {"description": "List of agent configs"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmAdmins": {
-      "get": {
-        "operationId": "listAdmins",
-        "summary": "List all SiteMinder administrators",
-        "responses": {"200": {"description": "List of admins"}}
-      },
-      "post": {
-        "operationId": "createAdmin",
-        "summary": "Create a new administrator",
-        "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object"}}}},
-        "responses": {"201": {"description": "Admin created"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmAdmins/{name}": {
-      "get": {
-        "operationId": "getAdmin",
-        "summary": "Get administrator by name",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "responses": {"200": {"description": "Admin details"}}
-      },
-      "delete": {
-        "operationId": "deleteAdmin",
-        "summary": "Delete an administrator",
-        "parameters": [{"name": "name", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "responses": {"204": {"description": "Admin deleted"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmHostConfigs": {
-      "get": {
-        "operationId": "listHostConfigs",
-        "summary": "List all host configurations",
-        "responses": {"200": {"description": "List of host configs"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmPasswordPolicies": {
-      "get": {
-        "operationId": "listPasswordPolicies",
-        "summary": "List all password policies",
-        "responses": {"200": {"description": "List of password policies"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmAgentTypes": {
-      "get": {
-        "operationId": "listAgentTypes",
-        "summary": "List all agent types",
-        "responses": {"200": {"description": "List of agent types"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmCertMaps": {
-      "get": {
-        "operationId": "listCertMaps",
-        "summary": "List all certificate mappings",
-        "responses": {"200": {"description": "List of cert maps"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmVariables": {
-      "get": {
-        "operationId": "listVariables",
-        "summary": "List all SiteMinder variables",
-        "responses": {"200": {"description": "List of variables"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmIdentityMappings": {
-      "get": {
-        "operationId": "listIdentityMappings",
-        "summary": "List all identity mappings",
-        "responses": {"200": {"description": "List of identity mappings"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmResponseGroups": {
-      "get": {
-        "operationId": "listResponseGroups",
-        "summary": "List all response groups",
-        "responses": {"200": {"description": "List of response groups"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmGlobalPolicies": {
-      "get": {
-        "operationId": "listGlobalPolicies",
-        "summary": "List all global policies",
-        "responses": {"200": {"description": "List of global policies"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmGlobalRealms": {
-      "get": {
-        "operationId": "listGlobalRealms",
-        "summary": "List all global realms",
-        "responses": {"200": {"description": "List of global realms"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmGlobalResponses": {
-      "get": {
-        "operationId": "listGlobalResponses",
-        "summary": "List all global responses",
-        "responses": {"200": {"description": "List of global responses"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmGlobalRules": {
-      "get": {
-        "operationId": "listGlobalRules",
-        "summary": "List all global rules",
-        "responses": {"200": {"description": "List of global rules"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmExternalOIDCProviderConfigs": {
-      "get": {
-        "operationId": "listOIDCProviders",
-        "summary": "List all external OIDC provider configurations",
-        "responses": {"200": {"description": "List of OIDC providers"}}
-      }
-    },
-    "/ca/api/sso/services/policy/v1/SmAffiliateDomains": {
-      "get": {
-        "operationId": "listAffiliateDomains",
-        "summary": "List all affiliate domains",
-        "responses": {"200": {"description": "List of affiliate domains"}}
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Agent updated"
+          }
+        }
       }
     },
     "/ca/api/sso/services/policy/v1/SmAuthMethodGroups": {
       "get": {
         "operationId": "listAuthMethodGroups",
         "summary": "List all authentication method groups",
-        "responses": {"200": {"description": "List of auth method groups"}}
+        "responses": {
+          "200": {
+            "description": "List of auth method groups"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAuthSchemes": {
+      "get": {
+        "operationId": "listAuthSchemes",
+        "summary": "List all authentication schemes",
+        "responses": {
+          "200": {
+            "description": "List of auth schemes"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createAuthScheme",
+        "summary": "Create a new authentication scheme",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Auth scheme created"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmAuthSchemes/{name}": {
+      "delete": {
+        "operationId": "deleteAuthScheme",
+        "summary": "Delete an authentication scheme",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Auth scheme deleted"
+          }
+        }
+      },
+      "get": {
+        "operationId": "getAuthScheme",
+        "summary": "Get auth scheme by name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Auth scheme details"
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateAuthScheme",
+        "summary": "Update an authentication scheme",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Auth scheme updated"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmCertMaps": {
+      "get": {
+        "operationId": "listCertMaps",
+        "summary": "List all certificate mappings",
+        "responses": {
+          "200": {
+            "description": "List of cert maps"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains": {
+      "get": {
+        "operationId": "listDomains",
+        "summary": "List all policy domains",
+        "responses": {
+          "200": {
+            "description": "List of domains"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createDomain",
+        "summary": "Create a new policy domain",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Domain created"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmDomains/{name}": {
+      "delete": {
+        "operationId": "deleteDomain",
+        "summary": "Delete a domain",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Domain deleted"
+          }
+        }
+      },
+      "get": {
+        "operationId": "getDomain",
+        "summary": "Get domain by name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Domain details"
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateDomain",
+        "summary": "Update an existing domain",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Domain updated"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmExternalOIDCProviderConfigs": {
+      "get": {
+        "operationId": "listOIDCProviders",
+        "summary": "List all external OIDC provider configurations",
+        "responses": {
+          "200": {
+            "description": "List of OIDC providers"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmGlobalPolicies": {
+      "get": {
+        "operationId": "listGlobalPolicies",
+        "summary": "List all global policies",
+        "responses": {
+          "200": {
+            "description": "List of global policies"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmGlobalRealms": {
+      "get": {
+        "operationId": "listGlobalRealms",
+        "summary": "List all global realms",
+        "responses": {
+          "200": {
+            "description": "List of global realms"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmGlobalResponses": {
+      "get": {
+        "operationId": "listGlobalResponses",
+        "summary": "List all global responses",
+        "responses": {
+          "200": {
+            "description": "List of global responses"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmGlobalRules": {
+      "get": {
+        "operationId": "listGlobalRules",
+        "summary": "List all global rules",
+        "responses": {
+          "200": {
+            "description": "List of global rules"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmHostConfigs": {
+      "get": {
+        "operationId": "listHostConfigs",
+        "summary": "List all host configurations",
+        "responses": {
+          "200": {
+            "description": "List of host configs"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmIdentityMappings": {
+      "get": {
+        "operationId": "listIdentityMappings",
+        "summary": "List all identity mappings",
+        "responses": {
+          "200": {
+            "description": "List of identity mappings"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmPasswordPolicies": {
+      "get": {
+        "operationId": "listPasswordPolicies",
+        "summary": "List all password policies",
+        "responses": {
+          "200": {
+            "description": "List of password policies"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmPolicies": {
+      "get": {
+        "operationId": "listPolicies",
+        "summary": "List all access policies",
+        "responses": {
+          "200": {
+            "description": "List of policies"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmRealms": {
+      "get": {
+        "operationId": "listRealms",
+        "summary": "List all protected realms",
+        "responses": {
+          "200": {
+            "description": "List of realms"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmResponseGroups": {
+      "get": {
+        "operationId": "listResponseGroups",
+        "summary": "List all response groups",
+        "responses": {
+          "200": {
+            "description": "List of response groups"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmResponses": {
+      "get": {
+        "operationId": "listResponses",
+        "summary": "List all response objects",
+        "responses": {
+          "200": {
+            "description": "List of responses"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmRules": {
+      "get": {
+        "operationId": "listRules",
+        "summary": "List all policy rules",
+        "responses": {
+          "200": {
+            "description": "List of rules"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmUserDirectories": {
+      "get": {
+        "operationId": "listUserDirectories",
+        "summary": "List all user directories",
+        "responses": {
+          "200": {
+            "description": "List of user directories"
+          }
+        }
+      }
+    },
+    "/ca/api/sso/services/policy/v1/SmVariables": {
+      "get": {
+        "operationId": "listVariables",
+        "summary": "List all SiteMinder variables",
+        "responses": {
+          "200": {
+            "description": "List of variables"
+          }
+        }
       }
     }
   }

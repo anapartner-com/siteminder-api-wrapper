@@ -1,0 +1,9 @@
+{
+  "operationId": "listCertMaps",
+  "summary": "List all certificate mappings",
+  "responses": {
+    "200": {
+      "description": "List of cert maps"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "operationId": "listAuthSchemes",
+  "summary": "List all authentication schemes",
+  "responses": {
+    "200": {
+      "description": "List of auth schemes"
+    }
+  }
+}

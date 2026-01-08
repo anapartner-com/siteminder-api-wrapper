@@ -1,0 +1,9 @@
+{
+  "operationId": "listAgentGroups",
+  "summary": "List all agent groups",
+  "responses": {
+    "200": {
+      "description": "List of agent groups"
+    }
+  }
+}

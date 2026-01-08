@@ -1,0 +1,9 @@
+{
+  "operationId": "listVariables",
+  "summary": "List all SiteMinder variables",
+  "responses": {
+    "200": {
+      "description": "List of variables"
+    }
+  }
+}

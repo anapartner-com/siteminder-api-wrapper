@@ -1,0 +1,19 @@
+{
+  "operationId": "deleteAdmin",
+  "summary": "Delete an administrator",
+  "parameters": [
+    {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "204": {
+      "description": "Admin deleted"
+    }
+  }
+}

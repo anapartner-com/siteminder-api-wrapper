@@ -1,0 +1,9 @@
+{
+  "operationId": "listGlobalRules",
+  "summary": "List all global rules",
+  "responses": {
+    "200": {
+      "description": "List of global rules"
+    }
+  }
+}

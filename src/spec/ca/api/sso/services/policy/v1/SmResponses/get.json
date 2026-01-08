@@ -1,0 +1,9 @@
+{
+  "operationId": "listResponses",
+  "summary": "List all response objects",
+  "responses": {
+    "200": {
+      "description": "List of responses"
+    }
+  }
+}

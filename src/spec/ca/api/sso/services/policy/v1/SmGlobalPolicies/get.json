@@ -1,0 +1,9 @@
+{
+  "operationId": "listGlobalPolicies",
+  "summary": "List all global policies",
+  "responses": {
+    "200": {
+      "description": "List of global policies"
+    }
+  }
+}

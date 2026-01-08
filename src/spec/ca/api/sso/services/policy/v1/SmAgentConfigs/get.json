@@ -1,0 +1,9 @@
+{
+  "operationId": "listAgentConfigs",
+  "summary": "List all agent configurations",
+  "responses": {
+    "200": {
+      "description": "List of agent configs"
+    }
+  }
+}

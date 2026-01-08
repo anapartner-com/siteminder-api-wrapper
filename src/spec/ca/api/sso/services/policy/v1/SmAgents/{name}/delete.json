@@ -1,0 +1,19 @@
+{
+  "operationId": "deleteAgent",
+  "summary": "Delete an agent",
+  "parameters": [
+    {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "204": {
+      "description": "Agent deleted"
+    }
+  }
+}

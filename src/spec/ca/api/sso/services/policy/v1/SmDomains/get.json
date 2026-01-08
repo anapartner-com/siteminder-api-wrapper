@@ -1,0 +1,9 @@
+{
+  "operationId": "listDomains",
+  "summary": "List all policy domains",
+  "responses": {
+    "200": {
+      "description": "List of domains"
+    }
+  }
+}

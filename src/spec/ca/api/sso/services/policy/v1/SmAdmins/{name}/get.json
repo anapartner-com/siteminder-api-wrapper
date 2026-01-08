@@ -1,0 +1,19 @@
+{
+  "operationId": "getAdmin",
+  "summary": "Get administrator by name",
+  "parameters": [
+    {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "Admin details"
+    }
+  }
+}

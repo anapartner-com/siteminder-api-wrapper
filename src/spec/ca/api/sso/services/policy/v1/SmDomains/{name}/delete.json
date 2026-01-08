@@ -1,0 +1,19 @@
+{
+  "operationId": "deleteDomain",
+  "summary": "Delete a domain",
+  "parameters": [
+    {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "204": {
+      "description": "Domain deleted"
+    }
+  }
+}

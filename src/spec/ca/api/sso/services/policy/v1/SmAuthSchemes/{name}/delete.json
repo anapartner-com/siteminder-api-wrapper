@@ -1,0 +1,19 @@
+{
+  "operationId": "deleteAuthScheme",
+  "summary": "Delete an authentication scheme",
+  "parameters": [
+    {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "204": {
+      "description": "Auth scheme deleted"
+    }
+  }
+}

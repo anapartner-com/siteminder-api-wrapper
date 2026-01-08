@@ -1,0 +1,9 @@
+{
+  "operationId": "listAdmins",
+  "summary": "List all SiteMinder administrators",
+  "responses": {
+    "200": {
+      "description": "List of admins"
+    }
+  }
+}

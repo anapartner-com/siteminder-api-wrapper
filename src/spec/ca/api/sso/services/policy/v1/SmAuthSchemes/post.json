@@ -1,0 +1,19 @@
+{
+  "operationId": "createAuthScheme",
+  "summary": "Create a new authentication scheme",
+  "requestBody": {
+    "required": true,
+    "content": {
+      "application/json": {
+        "schema": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "201": {
+      "description": "Auth scheme created"
+    }
+  }
+}
